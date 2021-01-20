@@ -3,7 +3,9 @@
 }
 
 .hotSales__title {
+    font-size: 24px;
     text-align: center;
+    text-transform: uppercase;
 }
 
 .hotSales__products {

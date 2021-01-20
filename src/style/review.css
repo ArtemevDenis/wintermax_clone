@@ -1,0 +1,25 @@
+.review {
+    width: 100%;
+}
+
+.review:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.review__line {
+    display: flex;
+    justify-content: space-between;
+}
+
+.review__date {
+    font-size: 14px;
+}
+
+.review__author {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.review__text {
+    font-size: 18px;
+}

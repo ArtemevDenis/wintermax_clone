@@ -3,7 +3,7 @@ import React from "react";
 
 const Logo = () => {
     return (
-        <p className='logo'><NavLink to="/">winter<br/>max</NavLink></p>
+        <p className='logo'><NavLink to="/home">winter<br/>max</NavLink></p>
     )
 }
 export default Logo

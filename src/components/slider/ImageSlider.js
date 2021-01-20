@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {NavLink} from "react-router-dom";
 
-const ImageSlider = ({wSize = '100%', hSize ='100%', dataSet}) => {
+const ImageSlider = ({wSize = '100%', hSize = '100%', dataSet, noLinks = false}) => {
     const [currentIndex, setCurrentIndex] = useState(0)
     // const preview = (
     //     <div> {dataSet.map((slider, index) => {
@@ -28,20 +28,24 @@ const ImageSlider = ({wSize = '100%', hSize ='100%', dataSet}) => {
     }
 
 
-    if (Array.isArray(dataSet)) {
-        console.log(dataSet[currentIndex])
+    if (Array.isArray(dataSet) && dataSet.length !== 0) {
+        console.log()
         return (
+
             <div className='slider' style={{width: wSize, height: hSize}}>
                 <span className='slider__arrow slider__arrow--right' onClick={nextHandler}/>
                 <span className='slider__arrow slider__arrow--left' onClick={prevHandler}/>
-                <NavLink to={dataSet[currentIndex].link}>
+                {noLinks ? <img
+                    className='slider__image'
+                    src={dataSet[currentIndex].image}
+                    alt={dataSet[currentIndex].alt}
+                /> : <NavLink to={dataSet[currentIndex].link}>
                     <img
                         className='slider__image'
                         src={dataSet[currentIndex].image}
                         alt={dataSet[currentIndex].alt}
 
-                    />
-                </NavLink>
+                    /> </NavLink>}
             </div>
         )
     } else
