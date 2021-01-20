@@ -11,13 +11,12 @@
 
 .main__news {
     grid-area: news;
-    background: #3A96FF;
 }
 
 .main__slider {
     grid-area: slider;
 }
 
-.main__hot{
+.main__hot {
     grid-area: hot;
 }

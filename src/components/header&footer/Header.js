@@ -5,7 +5,7 @@ import Logo from "./Logo";
 
 function Header() {
     return (
-        <header className='header'>
+        <header className='header header-container'>
             <div className='inner header__content'>
                 <Logo/>
                 <div className='header__right-side'>
