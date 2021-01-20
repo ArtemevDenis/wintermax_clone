@@ -1,0 +1,14 @@
+.hotSales {
+    margin-top: 30px;
+}
+
+.hotSales__title {
+    text-align: center;
+}
+
+.hotSales__products {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}

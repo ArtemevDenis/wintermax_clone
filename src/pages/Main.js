@@ -13,7 +13,7 @@ function Main() {
                     return <MiniNews key={news.id} news={news}/>
                 })}
             </div>
-            <div className='main__slider'><ImageSlider wSize={810} hSize={645} dataSet={SliderData}/></div>
+            <div className='main__slider'><ImageSlider hSize={'565px'} dataSet={SliderData}/></div>
             <div className='main__hot'>
                 <HotSales/>
             </div>

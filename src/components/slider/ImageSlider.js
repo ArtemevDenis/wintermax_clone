@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {NavLink} from "react-router-dom";
 
-const ImageSlider = ({wSize, hSize, dataSet}) => {
+const ImageSlider = ({wSize = '100%', hSize ='100%', dataSet}) => {
     const [currentIndex, setCurrentIndex] = useState(0)
     // const preview = (
     //     <div> {dataSet.map((slider, index) => {

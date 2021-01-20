@@ -9,6 +9,9 @@
 @import "style/main.css";
 @import "style/miniNews.css";
 @import "style/news.css";
+@import "style/rating.css";
+@import "style/productCard.css";
+@import "style/hotSales.css";
 
 * {
     margin: 0;

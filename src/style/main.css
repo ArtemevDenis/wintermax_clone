@@ -5,7 +5,7 @@
     grid-template-areas: "news slider"
                         "hot hot";
     row-gap: 10px;
-    column-gap: 10px;
+    column-gap: 40px;
 
 }
 
