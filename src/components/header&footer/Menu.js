@@ -3,7 +3,7 @@ import {NavLink, useHistory} from "react-router-dom";
 import React, {useContext} from "react";
 import {AuthContext} from "../../context/AuthContext";
 
-export default ({listOrientation}) => {
+const Menu = ({listOrientation}) => {
     const history = useHistory()
     const {logout, isAuth} = useContext(AuthContext)
     const cartSize = 0
@@ -29,3 +29,5 @@ export default ({listOrientation}) => {
         </nav>
     )
 }
+
+export default Menu

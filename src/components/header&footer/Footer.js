@@ -1,7 +1,6 @@
 import React from "react";
-import Main from "../pages/Main";
-import Menu from "./header/Menu";
-import ContactData from "./header/ContactData";
+import Menu from "./Menu";
+import ContactData from "./ContactData";
 
 function Footer() {
     return (

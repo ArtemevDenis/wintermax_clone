@@ -1,3 +1,5 @@
+@import "style/slider.css";
+
 * {
     margin: 0;
     padding: 0;
@@ -117,3 +119,5 @@ body #root {
 .footer__item:not(:last-child) {
     margin-right: 100px;
 }
+
+

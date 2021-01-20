@@ -1,6 +1,6 @@
 import './App.css';
-import Footer from "./components/Footer";
-import Header from "./components/header/Header";
+import Footer from "./components/header&footer/Footer";
+import Header from "./components/header&footer/Header";
 
 
 import React from 'react'

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default () => {
+const ContactData = () => {
     return (
         <div className='contacts'>
             <p className='contacts__item'>тел.: <a className='contacts__link' href='tel:8(999) 999-99-99'>8(999)
@@ -10,3 +10,4 @@ export default () => {
         </div>
     )
 }
+export default ContactData

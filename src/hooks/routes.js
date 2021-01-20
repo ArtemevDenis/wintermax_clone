@@ -65,9 +65,9 @@ export const useRoutes = () => {
         <AdminRoute path={"/admin/orders"}>
             <Orders/>
         </AdminRoute>
-        <Route path={"/admin/goods"}>
+        <AdminRoute path={"/admin/goods"}>
             <Goods/>
-        </Route>
+        </AdminRoute>
         <AdminRoute path={"/admin/goods/:id"}>
             <AdminProduct/>
         </AdminRoute>
@@ -86,6 +86,7 @@ export const useRoutes = () => {
     return (
         <Switch>
             {defaultRouters}
+            <Redirect to={"/"}/>
         </Switch>
 
     )
