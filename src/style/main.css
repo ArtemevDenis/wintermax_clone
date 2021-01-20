@@ -1,0 +1,23 @@
+.main {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-areas: "news slider"
+                        "hot hot";
+    row-gap: 10px;
+    column-gap: 10px;
+
+}
+
+.main__news {
+    grid-area: news;
+    background: #3A96FF;
+}
+
+.main__slider {
+    grid-area: slider;
+}
+
+.main__hot{
+    grid-area: hot;
+}

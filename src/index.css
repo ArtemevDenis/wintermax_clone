@@ -1,15 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+@import "style/contacts.css";
+@import "style/footer.css";
+@import "style/header.css";
+@import "style/logo.css";
+@import "style/nav.css";
 @import "style/slider.css";
+@import "style/main.css";
 
 * {
     margin: 0;
     padding: 0;
 }
 
-body #root {
+#root {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    background: #CBEEFC;
+    font-family: 'Roboto', sans-serif;
 }
 
 .inner {
@@ -18,106 +27,11 @@ body #root {
     margin: auto;
 }
 
-.header {
-    position: relative;
-    background: #3A96FF;
-    height: 110px;
-}
-
-.header__content {
-    height: 100%;
-    margin: auto;
-    display: flex;
-    color: #fff;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header__right-side {
-    text-align: right;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: 500;
-    color: white;
-    text-transform: uppercase;
-    text-align: left;
-}
-
-.logo a {
-    text-decoration: none;
-    color: white;
-
-}
-
-.contacts {
-    margin-bottom: 5px;
-}
-
-.contacts__item,
-.contacts__link {
-    font-size: 14px;
-    color: white;
-}
-
-.nav {
-    list-style: none;
-}
-
-.nav a {
-    color: white;
-    text-decoration: none;
-}
-
-.nav--inline {
-    display: flex;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.nav__item--inline:not(:last-child) {
-    margin-right: 10px;
-}
-
-.nav__item--inline:not(:last-child) ::after {
-    content: "|";
-    margin-left: 10px;
-}
-
-.nav--list {
-    display: block;
-    font-size: 14px;
-    font-weight: normal;
-}
-
-.nav__item--list {
-
-}
-
-.nav__item--list:not(:last-child)::after {
-    content: "";
-}
-
 .container {
     flex: 1 0 auto;
 }
 
-.footer {
+.footer-container {
     flex: 0 0 auto;
-    background: #3A96FF;
-    height: 150px;
 }
-
-.footer__content {
-    padding: 40px 0 0 0;
-    display: flex;
-    color: #fff;
-    align-items: baseline;
-}
-
-.footer__item:not(:last-child) {
-    margin-right: 100px;
-}
-
 

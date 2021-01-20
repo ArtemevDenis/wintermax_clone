@@ -4,9 +4,12 @@ import {SliderData} from "../data/SliderData";
 
 function Main() {
     return (
-        <div>
-            <ImageSlider wSize={765} hSize={645} dataSet={SliderData}/>
-            <ImageSlider wSize={765} hSize={645} dataSet={SliderData}/>
+        <div className='main'>
+            <div className='main__news'></div>
+            <div className='main__slider'><ImageSlider wSize={810} hSize={645} dataSet={SliderData}/></div>
+            <div className='main__hot'>
+                <h2>Хот продаж</h2>
+            </div>
         </div>
     );
 }

@@ -1,0 +1,17 @@
+.footer {
+    background: #3A96FF;
+    height: 150px;
+}
+
+.footer__content {
+    padding: 40px 0 0 0;
+    display: flex;
+    color: #fff;
+    align-items: baseline;
+}
+
+.footer__item:not(:last-child) {
+    margin-right: 100px;
+}
+
+

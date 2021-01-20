@@ -4,7 +4,7 @@ import ContactData from "./ContactData";
 
 function Footer() {
     return (
-        <footer className='footer'>
+        <footer className='footer-container footer'>
             <div className='inner footer__content'>
                 <div className='footer__item'>
                     <Menu listOrientation={'list'}/>

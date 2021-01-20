@@ -8,7 +8,7 @@ function Root() {
     const routes = useRoutes();
     const {isAdmin} = useContext(AuthContext)
     return (
-        <main className='container'>
+        <main className='container inner'>
             {isAdmin &&
             <ul>
                 {AdminMenuData.map((item, index) => {
