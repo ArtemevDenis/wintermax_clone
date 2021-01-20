@@ -1,25 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
+import Footer from "./components/Footer";
+import Header from "./components/header/Header";
+
+
+import React from 'react'
+import {BrowserRouter as Router} from "react-router-dom";
+import {useAuth} from "./hooks/auth.hook";
+
+import {AuthContext} from "./context/AuthContext";
+import Loader from "./components/Loader";
+import Root from "./components/Root";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const {token, login, logout, userID, readyAuth} = useAuth()
+
+    //const isAdmin = false;
+    //const isAuth = !!token;
+    const isAdmin = false;
+    const isAuth = true;
+
+    const readyAdmin = true;
+
+
+    if (!readyAuth && !readyAdmin) {
+        return <Loader/>
+    }
+
+    return (
+
+        <AuthContext.Provider value={{token, login, logout, userID, isAuth, isAdmin}}>
+            <Router>
+                <Header/>
+                <Root isAdmin={isAdmin} isAuth={isAuth}/>
+                <Footer/>
+            </Router>
+        </AuthContext.Provider>
+    );
 }
 
 export default App;
