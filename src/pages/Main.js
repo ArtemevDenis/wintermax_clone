@@ -1,20 +1,21 @@
 import React from "react";
 import ImageSlider from "../components/slider/ImageSlider";
 import {SliderData} from "../data/SliderData";
-import FakeNews from "../data/fackeNews";
+import FakeNews from "../data/fakeNews";
 import MiniNews from "../components/news/MiniNews";
+import HotSales from "../components/HotSales";
 
 function Main() {
     return (
         <div className='main'>
             <div className='main__news'>
                 {FakeNews.map((news) => {
-                    return <MiniNews news={news}/>
+                    return <MiniNews key={news.id} news={news}/>
                 })}
             </div>
             <div className='main__slider'><ImageSlider wSize={810} hSize={645} dataSet={SliderData}/></div>
             <div className='main__hot'>
-                <h2>Хот продаж</h2>
+                <HotSales/>
             </div>
         </div>
     );

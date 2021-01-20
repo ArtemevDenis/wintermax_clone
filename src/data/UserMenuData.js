@@ -1,7 +1,7 @@
 export const UserMenuData = [
     {
         title: "Главная",
-        path: "/",
+        path: "/home",
     },
     {
         title: "Каталог",

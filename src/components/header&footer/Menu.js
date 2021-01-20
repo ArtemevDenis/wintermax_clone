@@ -11,7 +11,7 @@ const Menu = ({listOrientation}) => {
     const logoutHandler = event => {
         event.preventDefault()
         logout()
-        history.push('/')
+        history.push('/home')
     }
     return (
         <nav>

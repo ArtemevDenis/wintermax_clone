@@ -8,6 +8,7 @@
 @import "style/slider.css";
 @import "style/main.css";
 @import "style/miniNews.css";
+@import "style/news.css";
 
 * {
     margin: 0;
@@ -39,3 +40,5 @@
 .header-container {
     flex: 0 0 auto;
 }
+
+

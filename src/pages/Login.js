@@ -25,7 +25,7 @@ function Login() {
         try {
             const data = await request('/api/auth/login', 'POST', {...form})
             auth.login(data.token, data.userID)
-            history.push('/')
+            history.push('/home')
         } catch (e) {
 
         }

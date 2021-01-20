@@ -18,6 +18,7 @@
 }
 
 .nav__item--inline:not(:last-child) ::after {
+    color: #ffffff;
     content: "|";
     margin-left: 10px;
 }
@@ -34,4 +35,12 @@
 
 .nav__item--list:not(:last-child)::after {
     content: "";
+}
+
+.nav .active {
+    color: #020251;
+}
+
+.nav a:hover {
+    color: #2d2dff;
 }

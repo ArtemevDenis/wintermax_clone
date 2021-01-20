@@ -4,7 +4,10 @@ import {NavLink} from "react-router-dom";
 const MiniNews = ({news}) => {
 
     const shortText = () => {
-        return news.text.substr(0, 140) + '...'
+        if (news.text.length > 140)
+            return news.text.substr(0, 140) + '...'
+        else
+            return news.text
     }
 
     return (

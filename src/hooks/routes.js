@@ -44,43 +44,43 @@ const ProtectRoute = ({children, ...rest}) => {
 export const useRoutes = () => {
 
     let defaultRouters = <>
-        <Route path={"/"} exact>
+        <Route path={"/home"} exact>
             <Main/>
         </Route>
         <Route path={"/catalog"} exact>
             <Catalog/>
         </Route>
-        <Route path={"/catalog/:id"}>
+        <Route path={"/catalog/:id"} exact>
             <Product/>
         </Route>
-        <Route path={"/cart"}>
+        <Route path={"/cart"} exact>
             <Cart/>
         </Route>
-        <Route path={"/news/:id"}>
+        <Route path={"/news/:id"} exact>
             <News/>
         </Route>
-        <Route path={"/login"}>
+        <Route path={"/login"} exact>
             <Login/>
         </Route>
-        <AdminRoute path={"/admin/orders"}>
+        <AdminRoute path={"/admin/orders"} exact>
             <Orders/>
         </AdminRoute>
-        <AdminRoute path={"/admin/goods"}>
+        <AdminRoute path={"/admin/goods"} exact>
             <Goods/>
         </AdminRoute>
-        <AdminRoute path={"/admin/goods/:id"}>
+        <AdminRoute path={"/admin/goods/:id"} exact>
             <AdminProduct/>
         </AdminRoute>
-        <AdminRoute path={"/admin/news"}>
+        <AdminRoute path={"/admin/news"} exact>
             <AdminNews/>
         </AdminRoute>
-        <AdminRoute path={"/admin/promo"}>
+        <AdminRoute path={"/admin/promo"} exact>
             <Promo/>
         </AdminRoute>
-        <ProtectRoute path={"/profile"}>
+        <ProtectRoute path={"/profile"} exact>
             <Profile/>
         </ProtectRoute>
-        <Redirect to={"/"}/>
+        <Redirect to={"/home"}/>
     </>
 
     return (
