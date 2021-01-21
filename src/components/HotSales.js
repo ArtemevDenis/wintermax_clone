@@ -4,6 +4,8 @@ import hotProducts from "../data/fakeProducts";
 
 
 const HotSales = () => {
+
+    //TODO добавить загрузку 4 товаров с сервера
     return (
         <div className='hotSales'>
             <h2 className='hotSales__title'>Хит продаж</h2>

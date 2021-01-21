@@ -16,7 +16,7 @@ const Filter = ({setFilter}) => {
         let filterData = JSON.parse(localStorage.getItem('filter'))
         console.log(filterData)
         if (filterData) {
-            filterData.types.map((type) => {
+            filterData.types.forEach((type) => {
                 if (type === 'snowboard')
                     isSnowboard.current.checked = true
                 if (type === 'skiing')

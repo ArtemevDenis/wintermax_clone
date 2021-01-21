@@ -2,7 +2,6 @@ import React, {useCallback, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {useHttp} from "../hooks/http.hook";
 import Loader from "../components/Loader";
-import fakeNews from "../data/fakeNews";
 import hotProducts from "../data/fakeProducts";
 import ProductView from "../components/product/ProductView";
 
@@ -19,12 +18,10 @@ function Product() {
             setProduct(data)
             console.log("getting data")
         } catch (e) {
-            console.log(e)
             setProduct(fakeProduct)
 
-            console.log(product);
         }
-    }, [productID, request])
+    }, [productID, request, fakeProduct])
 
     useEffect(() => {
         getProduct()

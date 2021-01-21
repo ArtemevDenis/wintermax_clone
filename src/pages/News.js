@@ -35,7 +35,7 @@ function News() {
     }
 
     return (
-        <NewsView news={fakeNews[0]}/>
+        <NewsView news={news?news:fakeNews[0]}/>
     );
 }
 

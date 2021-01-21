@@ -1,0 +1,37 @@
+.order-status {
+
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    height: 140px;
+}
+
+.order-status__item {
+    position: relative;
+}
+
+.order-status__bubble {
+    display: block;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    z-index: 100;
+    border: 2px #3A96FF solid;
+    margin: 10px;
+}
+
+.order-status__item:not(:last-child) .order-status__bubble:before {
+    position: absolute;
+    content: '';
+    height: 2px;
+    width: 190px;
+    background: inherit;
+    top: calc(50% - 1px);
+    left: calc(100% + 2px);
+}
+
+.order-status__description {
+    display: block;
+    text-align: center;
+}

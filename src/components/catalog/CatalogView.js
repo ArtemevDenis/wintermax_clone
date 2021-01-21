@@ -2,7 +2,10 @@ import React from "react";
 import ProductCard from "../product/ProductCard";
 
 const CatalogView = ({products}) => {
-    if (Array.isArray(products))
+    if (products.length === 0)
+        return <p>По данному запрросу товаров не найдено</p>
+    if (Array.isArray(products)) {
+        console.log(products)
         return (
             <>
                 {products.map((product) => {
@@ -11,7 +14,8 @@ const CatalogView = ({products}) => {
             </>
 
         )
-    return <p>По данному запрросу товаров не найдено</p>
+    }
+
 }
 
 export default CatalogView

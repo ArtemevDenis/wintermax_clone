@@ -16,8 +16,8 @@ function App() {
 
     //const isAdmin = false;
     //const isAuth = !!token;
-    const isAdmin = false;
-    const isAuth = true;
+    const isAdmin = true;
+    const isAuth = false;
 
     const readyAdmin = true;
 

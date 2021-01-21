@@ -86,6 +86,40 @@ const hotProducts = [{
         image: 'https://images.unsplash.com/photo-1491002052546-bf38f186af56?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1383&q=80',
         alt: '111213412'
     }]
+}, {
+    id: 1218,
+    title: "Сани",
+    cost: "5000",
+    rating: 4,
+    description: "lorem ipsum",
+    reviews: [],
+    imgSet: [{
+        image: 'https://images.unsplash.com/photo-1491002052546-bf38f186af56?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1383&q=80',
+        alt: '1212'
+    }, {
+        image: 'https://images.unsplash.com/photo-1491002052546-bf38f186af56?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1383&q=80',
+        alt: '111213412'
+    }]
+}, {
+    id: 1219,
+    title: "Лыжи",
+    cost: "10000",
+    rating: 4,
+    description: "lorem ipsum",
+    type: 'skiing',
+    reviews: [
+        {
+            author: "email@mail.ru",
+            date: "01.01.2021",
+            text: "lorem"
+        }],
+    imgSet: [{
+        image: 'https://images.unsplash.com/photo-1491002052546-bf38f186af56?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1383&q=80',
+        alt: '1212'
+    }, {
+        image: 'https://images.unsplash.com/photo-1491002052546-bf38f186af56?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1383&q=80',
+        alt: '111213412'
+    }]
 }]
 
 export default hotProducts

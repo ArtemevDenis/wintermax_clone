@@ -17,7 +17,9 @@
 @import "style/filter.css";
 @import "style/inputs.css";
 @import "style/catalog.css";
-
+@import "style/order.css";
+@import "style/profile.css";
+@import "style/orderStatus.css";
 
 * {
     margin: 0;

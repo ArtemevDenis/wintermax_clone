@@ -4,6 +4,8 @@ import Filter from "../components/catalog/Filter";
 import hotProducts from "../data/fakeProducts";
 
 function Catalog() {
+
+    //TODO добавить загрузку товаров с сервера
     const [filter, setFilter] = useState({})
     const [products, setProducts] = useState(hotProducts)
 
@@ -16,16 +18,12 @@ function Catalog() {
             max = Infinity;
 
         const filterData = {types: []};
-        console.log('filter')
-        console.log(filter)
         if (!filter.types)
             setFilter(filterData)
-        console.log('filter')
-        console.log(filter)
         if (parseInt(value.cost, 10) >= min && parseInt(value.cost, 10) <= max) {
             if (!filter.types || filter.types.length === 0)
                 return value
-            else if (filter.types.indexOf(value.type) != -1)
+            else if (filter.types.indexOf(value.type) !== -1)
                 return value
         }
     }

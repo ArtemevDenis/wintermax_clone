@@ -17,6 +17,8 @@ const Menu = ({listOrientation}) => {
         <nav>
             <ul className={`nav nav--${listOrientation}`}>
                 {UserMenuData.map((item, index) => {
+                    if (item.title === 'Профиль' && !isAuth)
+                        return <></>
                     return <li className={`nav__item nav__item--${listOrientation}`} key={index}><NavLink
                         to={item.path}>{item.title}</NavLink></li>
                 })}
