@@ -9,7 +9,7 @@ const HotSales = () => {
             <h2 className='hotSales__title'>Хит продаж</h2>
             <div className=' hotSales__products'>
                 {hotProducts.map((product) => {
-                    return <ProductCard product={product}/>
+                    return <ProductCard key={product.id} product={product}/>
                 })}
 
             </div>

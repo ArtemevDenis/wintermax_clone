@@ -17,7 +17,7 @@ const ProductCard = ({product}) => {
         <div className='product-card'>
             <NavLink to={`/catalog/${product.id}`}>
                 <div className='product-card__img-wrapper'>
-                    <img className='product-card__img' src={product.imgSet[0].image}/>
+                    <img className='product-card__img' src={product.imgSet[0].image} alt={product.imgSet[0].alt}/>
                 </div>
                 <div className='product__lite'>
                     <p>{product.title}</p>

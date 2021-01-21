@@ -14,6 +14,10 @@
 @import "style/hotSales.css";
 @import "style/review.css";
 @import "style/product.css";
+@import "style/filter.css";
+@import "style/inputs.css";
+@import "style/catalog.css";
+
 
 * {
     margin: 0;

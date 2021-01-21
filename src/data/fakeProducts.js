@@ -1,7 +1,8 @@
 const hotProducts = [{
     id: 1212,
     title: "Сани",
-    cost: "1500",
+    cost: "500",
+    type: "sagas",
     rating: 4,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec feugiat lorem enim, eget elementum dui eleifend ut. Proin vitae metus eleifend, pellentesque tortor quis, cursus tortor. Sed eu pulvinar tellus. Vestibulum quis ornare nulla. Etiam eros ante, blandit nec fringilla in, semper quis neque. Vestibulum euismod id felis quis ornare. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam hendrerit enim sit amet ipsum vehicula, vitae hendrerit orci tempor. Proin scelerisque aliquam velit non auctor. Suspendisse potenti. Sed est lectus, malesuada vitae convallis et, tincidunt commodo sapien. Nulla vel tempor dui.",
     reviews: [
@@ -38,11 +39,11 @@ const hotProducts = [{
         },
     ]
 }, {
-    id: 1212,
+    id: 1213,
     title: "Сани",
-    cost: "1500",
+    cost: "1000",
     rating: 4,
-
+    type: "sagas",
     description: "lorem ipsum",
     reviews: [],
     imgSet: [{
@@ -53,9 +54,9 @@ const hotProducts = [{
         alt: '111213412'
     }]
 }, {
-    id: 1212,
+    id: 1214,
     title: "Сани",
-    cost: "1500",
+    cost: "5000",
     rating: 4,
     description: "lorem ipsum",
     reviews: [],
@@ -67,9 +68,9 @@ const hotProducts = [{
         alt: '111213412'
     }]
 }, {
-    id: 1212,
+    id: 1215,
     title: "Сани",
-    cost: "1500",
+    cost: "10000",
     rating: 4,
     description: "lorem ipsum",
     reviews: [
