@@ -14,7 +14,7 @@ function Product() {
     const getProduct = useCallback(async () => {
         try {
 
-            const data = await request(`/api/news/${productID}`, 'GET', null,)
+            const data = await request(`/api/product/${productID}`, 'GET', null,)
             setProduct(data)
             console.log("getting data")
         } catch (e) {

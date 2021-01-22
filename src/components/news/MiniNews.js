@@ -18,7 +18,7 @@ const MiniNews = ({news}) => {
             </div>
             <p className='miniNews__description'>{shortText()}</p>
             <div className='miniNews__readMore'>
-                <NavLink to={`news/${news.id}`}>читать дальше...</NavLink>
+                <NavLink to={`news/${news.ID}`}>читать дальше...</NavLink>
             </div>
         </div>
     )

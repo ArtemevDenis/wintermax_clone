@@ -1,4 +1,4 @@
-import {useState, useCallback} from 'react'
+import {useCallback, useState} from 'react'
 
 export const useHttp = () => {
     const [loading, setLoading] = useState(false)
@@ -33,6 +33,5 @@ export const useHttp = () => {
     }, []);
 
     const clearError = useCallback(() => setError(null), []);
-    console.log(error)
     return {loading, request, error, clearError}
 }

@@ -21,7 +21,7 @@ const ImageSlider = ({wSize = '100%', hSize = '100%', dataSet, noLinks = false})
     }
 
     const prevHandler = () => {
-        if (currentIndex - 1 > 0) {
+        if (currentIndex - 1 >= 0) {
             setCurrentIndex(currentIndex - 1)
         } else
             setCurrentIndex(dataSet.length - 1)
@@ -33,8 +33,9 @@ const ImageSlider = ({wSize = '100%', hSize = '100%', dataSet, noLinks = false})
         return (
 
             <div className='slider' style={{width: wSize, height: hSize}}>
-                <span className='slider__arrow slider__arrow--right' onClick={nextHandler}/>
-                <span className='slider__arrow slider__arrow--left' onClick={prevHandler}/>
+
+                {dataSet.length > 1 && <span className='slider__arrow slider__arrow--right' onClick={nextHandler}/>}
+                {dataSet.length > 1 && <span className='slider__arrow slider__arrow--left' onClick={prevHandler}/>}
                 {noLinks ? <img
                     className='slider__image'
                     src={dataSet[currentIndex].image}

@@ -24,12 +24,13 @@ function Login() {
     const loginHandler = async () => {
         try {
             const data = await request('/api/auth/login', 'POST', {...form})
-            auth.login(data.token, data.userID)
-            history.push('/home')
+            auth.login(data.token, data.userID, data.role)
+            history.push('/profile')
         } catch (e) {
-
+            console.error(e)
         }
     }
+
     return (
         <div>
             <span>Вход</span>

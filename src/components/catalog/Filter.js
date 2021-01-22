@@ -8,7 +8,7 @@ const Filter = ({setFilter}) => {
     const costMax = useRef();
     const isSnowboard = useRef();
     const isSkiing = useRef();
-    const isSagas = useRef();
+    const isSleigh = useRef();
     const isSkates = useRef();
 
 
@@ -21,20 +21,22 @@ const Filter = ({setFilter}) => {
                     isSnowboard.current.checked = true
                 if (type === 'skiing')
                     isSkiing.current.checked = true
-                if (type === 'sagas')
-                    isSagas.current.checked = true
+                if (type === 'sleigh')
+                    isSleigh.current.checked = true
                 if (type === 'skates')
                     isSkates.current.checked = true
             })
             costMin.current.value = filterData.minPrice
             costMax.current.value = filterData.maxPrice
+
         } else
             filterData = {types: []};
+        setFilter(filterData)
     }
 
     useEffect(() => {
         getFilterData()
-    }, [getFilterData])
+    }, [])
 
     const handlerSubmit = (e) => {
         e.preventDefault();
@@ -46,8 +48,8 @@ const Filter = ({setFilter}) => {
         if (isSkiing.current.checked) {
             filterData.types.push('skiing')
         }
-        if (isSagas.current.checked) {
-            filterData.types.push('sagas')
+        if (isSleigh.current.checked) {
+            filterData.types.push('sleigh')
         }
         if (isSkates.current.checked) {
             filterData.types.push('skates')
@@ -74,7 +76,7 @@ const Filter = ({setFilter}) => {
             <p className='filter__subtitle'>Тип</p>
             <div className='filter__inputs-block filters__checkbox'>
                 <CheckBox ref={isSkiing} title={'Лыжи'}/>
-                <CheckBox ref={isSagas} title={'Сани'}/>
+                <CheckBox ref={isSleigh} title={'Сани'}/>
                 <CheckBox ref={isSnowboard} title={'Сноуборды'}/>
                 <CheckBox ref={isSkates} title={'Коньки'}/>
             </div>

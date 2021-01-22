@@ -20,7 +20,7 @@ function Profile() {
             setUser(user)
         else
             setUser({"email":"useremail@mail.ru","isSubscribe":true})
-    })
+    }, [setUser])
 
     return (
         <div className='profile'>

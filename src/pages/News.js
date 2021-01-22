@@ -3,7 +3,6 @@ import {useParams} from 'react-router-dom'
 import {useHttp} from "../hooks/http.hook";
 import Loader from "../components/Loader";
 import NewsView from "../components/news/NewsView";
-import fakeNews from "../data/fakeNews";
 
 function News() {
     const newsID = useParams().id
@@ -24,7 +23,7 @@ function News() {
 
     useEffect(() => {
         getNews()
-    }, [getNews])
+    }, [])
 
     // TODO доделать вывод ошибок + дописать api сервера
     // if (error) {
@@ -35,7 +34,7 @@ function News() {
     }
 
     return (
-        <NewsView news={news?news:fakeNews[0]}/>
+        <>{!loading && news && <NewsView news={news}/>}</>
     );
 }
 

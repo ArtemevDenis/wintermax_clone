@@ -30,7 +30,7 @@ const ProductView = ({product}) => {
             <div className='product__reviews'>
                 <h3 className='product__title'>Отзывы</h3>
                 {product.reviews.map((review, index) => {
-                    return <Review review={review}/>
+                    return <Review key={index} review={review}/>
                 })}
             </div>
         </div>

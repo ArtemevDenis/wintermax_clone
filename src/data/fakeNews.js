@@ -3,7 +3,6 @@ const FakeNews = [
         id: 1231,
         title: "title 1",
         date: "20.01.2020",
-        link: "/news/739212",
         text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut est nibh, porta ac imperdiet at, tristique eu ipsum. Ut facilisis, magna vel venenatis vulputate, turpis arcu finibus risus, sed ornare mi ligula efficitur nibh. Suspendisse mattis diam et augue rhoncus, euismod ornare purus elementum. Morbi viverra tristique enim, vel aliquam arcu commodo eu. Integer ligula sem, eleifend vel odio id, facilisis fringilla neque. Cras posuere nisi nec cursus sagittis. Donec nulla lacus, mattis vitae sollicitudin ut, pharetra et dolor. Fusce porttitor non justo vulputate ornare. Praesent in porta lacus, ac euismod odio.\n" +
             "\n" +
             "Maecenas ornare posuere lacus ut rhoncus. Vivamus id facilisis arcu. Morbi accumsan felis at massa interdum fringilla. Maecenas pulvinar faucibus purus eget aliquet. Donec sollicitudin justo eu posuere mollis. Praesent ut augue efficitur, interdum diam sed, egestas mi. Suspendisse id condimentum libero. Nullam ultricies risus ut viverra aliquam. Vivamus molestie odio ex, sit amet suscipit ante feugiat in. Suspendisse vestibulum sapien id dapibus lobortis. In eget ante vel dui interdum dapibus a ut dolor. Curabitur vitae tincidunt nisi, quis varius urna. Integer eleifend tellus vitae diam suscipit, nec commodo odio tempor. Sed lorem turpis, rutrum eu egestas a, feugiat nec ipsum.\n" +
@@ -18,14 +17,12 @@ const FakeNews = [
         id: 1232,
         title: "title 2",
         date: "18.01.2020",
-        link: "/news/739212",
         text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
     },
     {
         id: 761453231232,
         title: "title 3",
         date: "15.01.2020",
-        link: "/news/739212",
         text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut est nibh, porta ac imperdiet at, tristique eu ipsum. Ut facilisis, magna vel venenatis vulputate, turpis arcu finibus risus, sed ornare mi ligula efficitur nibh. Suspendisse mattis diam et augue rhoncus, euismod ornare purus elementum. Morbi viverra tristique enim, vel aliquam arcu commodo eu. Integer ligula sem, eleifend vel odio id, facilisis fringilla neque. Cras posuere nisi nec cursus sagittis. Donec nulla lacus, mattis vitae sollicitudin ut, pharetra et dolor. Fusce porttitor non justo vulputate ornare. Praesent in porta lacus, ac euismod odio.\n" +
             "\n" +
             "Maecenas ornare posuere lacus ut rhoncus. Vivamus id facilisis arcu. Morbi accumsan felis at massa interdum fringilla. Maecenas pulvinar faucibus purus eget aliquet. Donec sollicitudin justo eu posuere mollis. Praesent ut augue efficitur, interdum diam sed, egestas mi. Suspendisse id condimentum libero. Nullam ultricies risus ut viverra aliquam. Vivamus molestie odio ex, sit amet suscipit ante feugiat in. Suspendisse vestibulum sapien id dapibus lobortis. In eget ante vel dui interdum dapibus a ut dolor. Curabitur vitae tincidunt nisi, quis varius urna. Integer eleifend tellus vitae diam suscipit, nec commodo odio tempor. Sed lorem turpis, rutrum eu egestas a, feugiat nec ipsum.\n" +
