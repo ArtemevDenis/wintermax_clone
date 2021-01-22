@@ -15,15 +15,18 @@ const ProductCard = ({product}) => {
 
     return (
         <div className='product-card'>
-            <NavLink to={`/catalog/${product.id}`}>
+
+            <NavLink to={`/catalog/${product.ID}`}>
                 <div className='product-card__img-wrapper'>
-                    <img className='product-card__img' src={product.imgSet[0].image} alt=''/>
+                    {/*TODO времено убрано что бы протестить выборку*/}
+                    {/*//<img className='product-card__img' src={product.imgSet[0].image} alt=''/>*/}
                 </div>
                 <div className='product__lite'>
                     <p>{product.title}</p>
                     <p>{product.cost}₽</p></div>
                 <div className='product__lite'>
-                    <p>{reviewTitle()}</p>
+                    {/*TODO времено убрано что бы протестить выборку*/}
+                    {/*<p>{reviewTitle()}</p>*/}
                     <Rating rating={product.rating}/>
                 </div>
             </NavLink>

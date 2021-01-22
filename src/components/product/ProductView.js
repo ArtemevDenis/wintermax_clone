@@ -9,7 +9,7 @@ const ProductView = ({product}) => {
     return (
         <div className='product'>
             <NavLink className='back-link' to='/catalog'>В каталог</NavLink>
-            <ImageSlider dataSet={product.imgSet} hSize={'550px'} noLinks={true}/>
+            {/*<ImageSlider dataSet={product.imgSet} hSize={'550px'} noLinks={true}/>*/}
             <div className='product__line product__mt40'>
                 <div>
                     <h2 className='product__title'>{product.title}</h2>
@@ -29,9 +29,9 @@ const ProductView = ({product}) => {
             </div>
             <div className='product__reviews'>
                 <h3 className='product__title'>Отзывы</h3>
-                {product.reviews.map((review, index) => {
-                    return <Review key={index} review={review}/>
-                })}
+                {/*{product.reviews.map((review, index) => {*/}
+                {/*    return <Review key={index} review={review}/>*/}
+                {/*})}*/}
             </div>
         </div>
     )

@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams} from 'react-router-dom'
 import {useHttp} from "../hooks/http.hook";
 import Loader from "../components/Loader";
@@ -9,17 +9,14 @@ function News() {
     const {request, loading, error} = useHttp()
     const [news, setNews] = useState(null)
 
-    const getNews = useCallback(async () => {
+    const getNews = async () => {
         try {
-            console.log("getting data")
             const data = await request(`/api/news/${newsID}`, 'GET', null,)
-            console.log(data)
             setNews(data)
-            console.log("getting data")
         } catch (e) {
             console.log(e)
         }
-    }, [newsID, request])
+    }
 
     useEffect(() => {
         getNews()

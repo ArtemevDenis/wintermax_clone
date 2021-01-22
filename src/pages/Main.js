@@ -13,8 +13,6 @@ function Main() {
         try {
             const data = await request('/api/news/count/4', 'GET')
             setNews(data)
-            console.log(data)
-
         } catch (e) {
             console.error(e)
         }
@@ -29,7 +27,7 @@ function Main() {
         <div className='main'>
             <div className='main__news'>{!loading &&
             news.map((news) => {
-                return <MiniNews key={news.id} news={news}/>
+                return <MiniNews key={news.ID} news={news}/>
             })
 
             }

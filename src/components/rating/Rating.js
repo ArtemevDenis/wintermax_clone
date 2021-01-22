@@ -11,7 +11,7 @@ const Rating = ({rating = 1, size = 19}) => {
                     return <Star key={i} size={size} isFull={false}/>
                 })}
             </div>
-            <div className='rating__full' style={{width: '50%'}}>
+            <div className='rating__full' style={{width: (rating / 5 * 100) + '%'}}>
                 {starts.map((star, i) => {
                     return <Star key={i} size={size} isFull={true}/>
                 })}

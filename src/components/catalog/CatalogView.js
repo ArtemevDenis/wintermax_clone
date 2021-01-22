@@ -15,6 +15,7 @@ const CatalogView = ({products}) => {
 
         )
     }
+    return <p>По данному запрросу товаров не найдено</p>
 
 }
 
