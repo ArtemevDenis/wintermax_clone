@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/news', require('./routes/news.routes'))
 app.use('/api/products', require('./routes/products.routes'))
+app.use('/api/userData', require('./routes/userData.routes'))
 
 const PORT = config.get('port') || 5000;
 

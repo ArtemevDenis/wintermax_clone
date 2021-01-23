@@ -24,7 +24,8 @@ function Login() {
     const loginHandler = async () => {
         try {
             const data = await request('/api/auth/login', 'POST', {...form})
-            auth.login(data.token, data.userID, data.role)
+            auth.login(data.token, data.userID, data.role, data.email)
+
             history.push('/profile')
         } catch (e) {
             console.error(e)

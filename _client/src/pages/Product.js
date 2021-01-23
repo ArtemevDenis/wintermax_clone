@@ -10,11 +10,19 @@ function Product() {
     const productID = useParams().id
     const {request, loading, error} = useHttp()
     const [product, setProduct] = useState()
+    const [productImgs, setProductImgs] = useState()
+    const [reviews, setReviews] = useState()
 
     const getProduct = async () => {
         try {
-            const data = await request(`/api/products/${productID}`, 'GET',)
-            setProduct(data)
+            const product = await request(`/api/products/${productID}`, 'GET');
+            const imgs = await request(`/api/products/imgs/${productID}`, 'GET');
+            const reviews = await request(`/api/products/reviews/${productID}`, 'GET');
+            await setProduct(product);
+            await setProductImgs(imgs);
+            await setReviews(reviews);
+            console.log(reviews)
+            console.log(imgs)
         } catch (e) {
             console.log(e)
             // setProduct(fakeProduct)
@@ -35,7 +43,7 @@ function Product() {
 
     return (
         <>
-            {!loading && product && <ProductView product={product}/>}
+            {!loading && product && <ProductView product={product} imgSet={productImgs} reviews={reviews}/>}
         </>
     );
 }

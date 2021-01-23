@@ -2,14 +2,43 @@ CREATE DATABASE wintermax
 USE wintermax
 //DONE
 CREATE TABLE users (ID MEDIUMINT NOT NULL AUTO_INCREMENT,email VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL, role ENUM('user','admin') NOT NULL,PRIMARY KEY (ID));
-INSERT INTO users (email,password, role) VALUES("wintermaxadmin@email.com","adminadmin", "admin"),("user@email.com","user", "user");
+INSERT INTO users (email,password, role) VALUES
+("wintermaxadmin@email.com","adminadmin", "admin"),
+("user@email.com","user", "user");
 
-CREATE TABLE news (ID MEDIUMINT NOT NULL AUTO_INCREMENT, title VARCHAR(255) NOT NULL, date VARCHAR(11) NOT NULL, text MEDIUMTEXT NOT NULL, PRIMARY KEY (ID))
-INSERT INTO news (title, date, text) VALUES ('МЫ открылись!', '01.01.2021', 'kfkffkedcawecfawe'), ('Первые поставки тоываров!', '02.01.2021', 'kfkffkedcawecfawe kfkffkedcawecfawe  kfkffkedcawecfawe kfkffkedcawecfawe kfkffkedcawecfawekfkffkedcawecfawekfkffkedcawecfawe kfkffkedcawecfawe '), ('Скидки по случаю открытия!', '04.01.2021', 'Скидки Скидки Скидки Скидки Скидки Скидки Скидки Скидки Скидки'), ('Промокоды', '10.01.2021', 'Промокоды Промокоды Скидки Промокоды Скидки Промокоды Скидки Промокоды Скидки Промокоды Скидки Промокоды Скидки Промокоды Скидки Промокоды СкидкиПромокоды Скидки WINTERMAX% Промокоды Скидки Скидки Промокоды Промокоды')
 
 
-CREATE TABLE products (ID MEDIUMINT NOT NULL AUTO_INCREMENT, title VARCHAR(255) NOT NULL, cost INT UNSIGNED NOT NULL,
-type VARCHAR(100) NOT NULL,description VARCHAR(1000) NOT NULL, popular INT UNSIGNED NOT NULL,
+CREATE TABLE usersSubscribe (
+ID MEDIUMINT NOT NULL AUTO_INCREMENT,
+userID MEDIUMINT NOT NULL,
+isSubscribe TINYINT(1) default 0,
+FOREIGN KEY (userID)  REFERENCES users (ID) ON DELETE CASCADE,
+PRIMARY KEY (ID));
+
+INSERT INTO usersSubscribe (userID, isSubscribe) VALUES
+(1, 1),
+(2, 0);
+
+CREATE TABLE news (
+ID MEDIUMINT NOT NULL AUTO_INCREMENT,
+title VARCHAR(255) NOT NULL,
+date VARCHAR(11) NOT NULL,
+text MEDIUMTEXT NOT NULL, PRIMARY KEY (ID));
+
+INSERT INTO news (title, date, text) VALUES
+('МЫ открылись!', '01.01.2021', 'kfkffkedcawecfawe'),
+('Первые поставки тоываров!', '02.01.2021', 'kfkffkedcawecfawe kfkffkedcawecfawe  kfkffkedcawecfawe kfkffkedc awecfawe kfkffkedcawecfa wekfkff kedcawecfawekfk ffkedcawecfawe kfkffkedcawecfawe '),
+('Скидки по случаю открытия!', '04.01.2021', 'Скидки Скидки Скидки Скидки Скидки Скидки Скидки Скидки Скидки'),
+('Промокоды', '10.01.2021', 'Промокоды Промокоды Скидки Промокоды Скидки Промокоды Скидки Промокоды Скидки Промокоды Скидки Промокоды Скидки Промокоды Скидки Промокоды СкидкиПромокоды Скидки WINTERMAX% Промокоды Скидки Скидки Промокоды Промокоды');
+
+
+CREATE TABLE products (
+ID MEDIUMINT NOT NULL AUTO_INCREMENT,
+title VARCHAR(255) NOT NULL,
+cost INT UNSIGNED NOT NULL,
+type VARCHAR(100) NOT NULL,
+description VARCHAR(1000) NOT NULL,
+popular INT UNSIGNED NOT NULL,
 PRIMARY KEY (ID));
 
 INSERT INTO products (title, cost, type,  description, popular) VALUES
@@ -27,13 +56,17 @@ INSERT INTO products (title, cost, type,  description, popular) VALUES
 ('Коньки', 15000, 'skates',  'Лучший коньки в России!', 23667);
 
 
-CREATE TABLE productsImg (ID MEDIUMINT NOT NULL AUTO_INCREMENT, productID MEDIUMINT NOT NULL, link VARCHAR(100) NOT NULL,
-FOREIGN KEY (productID)  REFERENCES products (ID) ON DELETE CASCADE,PRIMARY KEY (ID))
 
-INSERT INTO productsImg (productID, link) VALUES
+
+CREATE TABLE productsImg (
+ID MEDIUMINT NOT NULL AUTO_INCREMENT,
+productID MEDIUMINT NOT NULL,
+img VARCHAR(100) NOT NULL,
+FOREIGN KEY (productID) REFERENCES products (ID) ON DELETE CASCADE,PRIMARY KEY (ID));
+
+INSERT INTO productsImg (productID, img) VALUES
 (1, 'UstXiYm.jpg'),
-(1, 'UstXiYm1.jpg'),
-(1, 'UstXiYm2.jpg'),
+(1, 'photo-1604537466608-109fa2f16c3b.jfif'),
 (2, 'UstXiYm.jpg'),
 (3, 'UstXiYm.jpg'),
 (4, 'UstXiYm.jpg'),
@@ -44,40 +77,64 @@ INSERT INTO productsImg (productID, link) VALUES
 (9, 'UstXiYm.jpg'),
 (10, 'UstXiYm.jpg'),
 (11, 'UstXiYm.jpg'),
-(12, 'UstXiYm.jpg'),
+(12, 'UstXiYm.jpg');
 
 
-CREATE TABLE reviews (ID MEDIUMINT NOT NULL AUTO_INCREMENT, productID MEDIUMINT NOT NULL, authorID MEDIUMINT NOT NULL,
-text VARCHAR(1000) NOT NULL, date VARCHAR(11) NOT NULL, rating TINYINT, PRIMARY KEY (ID))
+CREATE TABLE reviews (
+ID MEDIUMINT NOT NULL AUTO_INCREMENT,
+productID MEDIUMINT NOT NULL,
+authorID MEDIUMINT NOT NULL,
+text VARCHAR(1000) NOT NULL,
+date VARCHAR(11) NOT NULL,
+rating TINYINT,
+PRIMARY KEY (ID));
 
 
 INSERT INTO reviews (productID, authorID, text, date, rating) VALUES
 (1, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5),
-(1, 0, "ТОПОВЫЕ САНИ САНИ", "01.01.2021", 1),
+(1, 2, "ТОПОВЫЕ САНИ САНИ", "01.01.2021", 1),
 (1, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ РЕКОМЕНДУЮ", "01.01.2021", 5),
-(2, 0, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5),
+(2, 2, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5),
 (3, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "02.03.2021", 3),
 (4, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 4),
 (5, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 2),
-(5, 0, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 4),
+(5, 2, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 4),
 (6, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5),
 (7, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5),
 (7, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 1),
-(7, 0, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5),
-(7, 0, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 3),
+(7, 2, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5),
+(7, 2, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 3),
 (7, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5),
 (8, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 4),
 (9, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5),
-(10, 0, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 1),
+(10, 2, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 1),
 (10, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5),
 (11, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 2),
-(12, 0, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 3),
+(12, 2, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 3),
 (12, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5);
 
+
+create table cart (
+ID MEDIUMINT NOT NULL AUTO_INCREMENT,
+ownerID MEDIUMINT NOT NULL,
+productsList MEDIUMTEXT NOT NULL,
+promoCode VARCHAR(100) NOT NULL,
+isDelete TINYINT(1) default 0,
+PRIMARY KEY (ID))
 
 // <---DONE
 
 
 
 
+create table orders (
+ID MEDIUMINT NOT NULL AUTO_INCREMENT,
+ownerID MEDIUMINT NOT NULL,
+productsList MEDIUMTEXT NOT NULL,
+addressDelivery VARCHAR(1000) NOT NULL,
+dateDelivery VARCHAR(11) NOT NULL,
+date VARCHAR(11) NOT NULL,
+status TINYINT(1) default 0,
+totalPrice INT UNSIGNED NOT NULL,
+PRIMARY KEY (ID));
 

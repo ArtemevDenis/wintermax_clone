@@ -12,7 +12,7 @@ import Loader from "./components/Loader";
 import Root from "./components/Root";
 
 function App() {
-    const {token, login, logout, userID, ready, role} = useAuth()
+    const {token, login, logout, userID, ready, role, email} = useAuth()
 
     const isAdmin = !!(role && role.indexOf('admin') === 0);
     const isAuth = !!token;
@@ -24,7 +24,7 @@ function App() {
 
     return (
 
-        <AuthContext.Provider value={{token, login, logout, userID, isAuth, isAdmin}}>
+        <AuthContext.Provider value={{token, login, logout, userID, isAuth, isAdmin, email}}>
             <Router>
                 <Header/>
                 <Root/>

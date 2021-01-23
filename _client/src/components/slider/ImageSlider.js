@@ -38,12 +38,12 @@ const ImageSlider = ({wSize = '100%', hSize = '100%', dataSet, noLinks = false})
                 {dataSet.length > 1 && <span className='slider__arrow slider__arrow--left' onClick={prevHandler}/>}
                 {noLinks ? <img
                     className='slider__image'
-                    src={dataSet[currentIndex].image}
+                    src={'/images/' + dataSet[currentIndex].img}
                     alt={dataSet[currentIndex].alt}
                 /> : <NavLink to={dataSet[currentIndex].link}>
                     <img
                         className='slider__image'
-                        src={dataSet[currentIndex].image}
+                        src={'images/' + dataSet[currentIndex].img}
                         alt={dataSet[currentIndex].alt}
 
                     /> </NavLink>}

@@ -1,43 +1,60 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Order from "../components/profile/Order";
 import fakeOrder from "../data/fakeOrder";
+import {useHttp} from "../hooks/http.hook";
+import {AuthContext} from "../context/AuthContext";
 
 function Profile() {
-    const [user, setUser] = useState({"email": "useremail@mail.ru", "isSubscribe": true})
+    const [isSubscribe, setIsSubscribe] = useState();
+    const {loading, error, request, clearError} = useHttp()
+    const auth = useContext(AuthContext)
 
-    const subscribeHandler = () => {
 
-        console.log(user)
-        const newUser = user;
-        newUser.isSubscribe = !user.isSubscribe;
-        setUser(newUser);
-        localStorage.setItem('user', JSON.stringify(user))
+    const getStatusIsSubscribe = async () => {
+
+        try {
+            const data = await request('/api/userData/', 'POST', {userID: auth.userID},
+                {
+                    Authorization: `Bearer ${auth.token}`
+                })
+            await console.log(data)
+            await setIsSubscribe(data.isSubscribe)
+            await console.log('isSubscribe:' + isSubscribe)
+        } catch (e) {
+            console.error(e)
+        }
     }
-
-    const getStatusIsSubscribe = () => {
-
+    const sendIsSubscribe = async (isSub) => {
+        await request('/api/userData/setSubscribe/', 'PATCH', {userID: auth.userID, isSubscribe: isSub},
+            {
+                Authorization: `Bearer ${auth.token}`
+            }).then(setIsSubscribe(isSub))
     }
-    const setStatusInSubscribe = () => {
+    const setStatusInSubscribe = async () => {
+        try {
+            isSubscribe === 0 ?
+                sendIsSubscribe(1) :
+                sendIsSubscribe(0)
+        } catch (e) {
+            console.error(e)
+        }
+
     }
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem('user'))
-        if (user)
-            setUser(user)
-        else
-            setUser({"email": "useremail@mail.ru", "isSubscribe": true})
-    }, [setUser])
+        getStatusIsSubscribe()
+    }, [])
 
     return (
         <div className='profile'>
             <h2 className='profile__title'>Пользовательские данные:</h2>
-            <p className='profile__title'>email: {user.email} </p>
+            <p className='profile__title'>email: {auth.email} </p>
             <button
                 className='button-primary'
                 style={{width: '300px'}}
-                onClick={subscribeHandler}
+                onClick={setStatusInSubscribe}
             >
-                {user.isSubscribe ? 'Отписаться от рассылки' : 'Подписаться на рассылку'}
+                {isSubscribe === 0 ? 'Подписаться на рассылку' : 'Отписаться от рассылки'}
             </button>
             <h2 className='profile__title'>Ваши заказы:</h2>
             {fakeOrder.map((order) => {
