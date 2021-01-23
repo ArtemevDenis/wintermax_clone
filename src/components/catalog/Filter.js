@@ -3,7 +3,7 @@ import RangeInput from "./filter/RangeInput";
 import CheckBox from "./filter/CheckBox";
 
 
-const Filter = ({setFilter}) => {
+const Filter = ({filter, setFilter}) => {
     const costMin = useRef();
     const costMax = useRef();
     const isSnowboard = useRef();
@@ -13,10 +13,8 @@ const Filter = ({setFilter}) => {
 
 
     const getFilterData = () => {
-        let filterData = JSON.parse(localStorage.getItem('filter'))
-        console.log(filterData)
-        if (filterData) {
-            filterData.types.forEach((type) => {
+        if (filter && Array.isArray(filter.types)) {
+            filter.types.forEach((type) => {
                 if (type === 'snowboard')
                     isSnowboard.current.checked = true
                 if (type === 'skiing')
@@ -26,17 +24,14 @@ const Filter = ({setFilter}) => {
                 if (type === 'skates')
                     isSkates.current.checked = true
             })
-            costMin.current.value = filterData.minPrice
-            costMax.current.value = filterData.maxPrice
-
-        } else
-            filterData = {types: []};
-        setFilter(filterData)
+            costMin.current.value = filter.minPrice
+            costMax.current.value = filter.maxPrice
+        }
     }
 
     useEffect(() => {
         getFilterData()
-    }, [])
+    }, [filter])
 
     const handlerSubmit = (e) => {
         e.preventDefault();
@@ -57,11 +52,7 @@ const Filter = ({setFilter}) => {
 
         filterData.minPrice = costMin.current.value;
         filterData.maxPrice = costMax.current.value;
-
         setFilter(filterData);
-
-        localStorage.setItem('filter', JSON.stringify(filterData))
-
     }
     return (
         <form onSubmit={handlerSubmit} className='filter'>
