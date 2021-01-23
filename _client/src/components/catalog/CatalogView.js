@@ -6,7 +6,7 @@ const CatalogView = ({products}) => {
         return (
             <>
                 {products.map((product) => {
-                    return <ProductCard key={product.id} product={product}/>
+                    return <ProductCard key={product.ID} product={product}/>
                 })}
             </>
 

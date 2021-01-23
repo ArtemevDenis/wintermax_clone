@@ -3,7 +3,7 @@ import Order from "../components/profile/Order";
 import fakeOrder from "../data/fakeOrder";
 
 function Profile() {
-    const [user, setUser] = useState( {"email":"useremail@mail.ru","isSubscribe":true})
+    const [user, setUser] = useState({"email": "useremail@mail.ru", "isSubscribe": true})
 
     const subscribeHandler = () => {
 
@@ -14,12 +14,18 @@ function Profile() {
         localStorage.setItem('user', JSON.stringify(user))
     }
 
+    const getStatusIsSubscribe = () => {
+
+    }
+    const setStatusInSubscribe = () => {
+    }
+
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user'))
         if (user)
             setUser(user)
         else
-            setUser({"email":"useremail@mail.ru","isSubscribe":true})
+            setUser({"email": "useremail@mail.ru", "isSubscribe": true})
     }, [setUser])
 
     return (
