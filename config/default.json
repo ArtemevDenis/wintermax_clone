@@ -1,0 +1,9 @@
+{
+  "port": 5000,
+  "jwtSecret": "MS>pDt+KS2(7-^:A",
+  "baseUrl": "http://localhost:5000",
+  "host": "localhost",
+  "user": "wintermax",
+  "database": "wintermax",
+  "password": "wintermax"
+}

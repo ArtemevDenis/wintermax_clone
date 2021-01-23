@@ -1,0 +1,11 @@
+.rating {
+    position: relative;
+    overflow: hidden
+}
+
+.rating__empty,
+.rating__full {
+    position: absolute;
+    top: 0;
+    left: 0;
+}

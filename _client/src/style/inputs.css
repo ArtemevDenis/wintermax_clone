@@ -1,0 +1,20 @@
+.input__number--100 {
+    width: 100px;
+    font-size: 16px;
+    background: #c4c4c4;
+    border: none;
+    text-align: center;
+    margin: 0;
+    -webkit-appearance: none;
+    padding: 5px;
+    height: 30px;
+}
+
+
+.input__checkbox-label {
+    display: block;
+}
+
+.input__checkbox {
+
+}

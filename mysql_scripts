@@ -1,0 +1,83 @@
+CREATE DATABASE wintermax
+USE wintermax
+//DONE
+CREATE TABLE users (ID MEDIUMINT NOT NULL AUTO_INCREMENT,email VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL, role ENUM('user','admin') NOT NULL,PRIMARY KEY (ID));
+INSERT INTO users (email,password, role) VALUES("wintermaxadmin@email.com","adminadmin", "admin"),("user@email.com","user", "user");
+
+CREATE TABLE news (ID MEDIUMINT NOT NULL AUTO_INCREMENT, title VARCHAR(255) NOT NULL, date VARCHAR(11) NOT NULL, text MEDIUMTEXT NOT NULL, PRIMARY KEY (ID))
+INSERT INTO news (title, date, text) VALUES ('МЫ открылись!', '01.01.2021', 'kfkffkedcawecfawe'), ('Первые поставки тоываров!', '02.01.2021', 'kfkffkedcawecfawe kfkffkedcawecfawe  kfkffkedcawecfawe kfkffkedcawecfawe kfkffkedcawecfawekfkffkedcawecfawekfkffkedcawecfawe kfkffkedcawecfawe '), ('Скидки по случаю открытия!', '04.01.2021', 'Скидки Скидки Скидки Скидки Скидки Скидки Скидки Скидки Скидки'), ('Промокоды', '10.01.2021', 'Промокоды Промокоды Скидки Промокоды Скидки Промокоды Скидки Промокоды Скидки Промокоды Скидки Промокоды Скидки Промокоды Скидки Промокоды СкидкиПромокоды Скидки WINTERMAX% Промокоды Скидки Скидки Промокоды Промокоды')
+
+
+CREATE TABLE products (ID MEDIUMINT NOT NULL AUTO_INCREMENT, title VARCHAR(255) NOT NULL, cost INT UNSIGNED NOT NULL,
+type VARCHAR(100) NOT NULL,description VARCHAR(1000) NOT NULL, popular INT UNSIGNED NOT NULL,
+PRIMARY KEY (ID));
+
+INSERT INTO products (title, cost, type,  description, popular) VALUES
+('Сани', 1500, 'sleigh',  'Лучшие сани в мире!', 100),
+('Сани 2.0', 800, 'sleigh',  'Лучшие сани в России!', 1300),
+('Supper Сани ', 4000, 'sleigh',  'Лучшие сани в USA!', 131),
+('Лыжи', 5000, 'skiing',  'Лучшие лыжи в мире!', 523),
+('Лыжи', 8000, 'skiing',  'Лучшие лыжи в России!', 533),
+('Сноуборд', 15000, 'snowboard', 'Лучший snowboard в мире!', 101),
+('Коньки', 4000, 'skates',  'Лучший коньки в России!', 23),
+('Коньки', 2000, 'skates',  'Лучший коньки в России!', 233),
+('Коньки', 20000, 'skates',  'Лучший коньки в России!', 253),
+('Коньки', 10000, 'skates',  'Лучший коньки в России!', 2763),
+('Коньки', 12000, 'skates',  'Лучший коньки в России!', 233),
+('Коньки', 15000, 'skates',  'Лучший коньки в России!', 23667);
+
+
+CREATE TABLE productsImg (ID MEDIUMINT NOT NULL AUTO_INCREMENT, productID MEDIUMINT NOT NULL, link VARCHAR(100) NOT NULL,
+FOREIGN KEY (productID)  REFERENCES products (ID) ON DELETE CASCADE,PRIMARY KEY (ID))
+
+INSERT INTO productsImg (productID, link) VALUES
+(1, 'UstXiYm.jpg'),
+(1, 'UstXiYm1.jpg'),
+(1, 'UstXiYm2.jpg'),
+(2, 'UstXiYm.jpg'),
+(3, 'UstXiYm.jpg'),
+(4, 'UstXiYm.jpg'),
+(5, 'UstXiYm.jpg'),
+(6, 'UstXiYm.jpg'),
+(7, 'UstXiYm.jpg'),
+(8, 'UstXiYm.jpg'),
+(9, 'UstXiYm.jpg'),
+(10, 'UstXiYm.jpg'),
+(11, 'UstXiYm.jpg'),
+(12, 'UstXiYm.jpg'),
+
+
+CREATE TABLE reviews (ID MEDIUMINT NOT NULL AUTO_INCREMENT, productID MEDIUMINT NOT NULL, authorID MEDIUMINT NOT NULL,
+text VARCHAR(1000) NOT NULL, date VARCHAR(11) NOT NULL, rating TINYINT, PRIMARY KEY (ID))
+
+
+INSERT INTO reviews (productID, authorID, text, date, rating) VALUES
+(1, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5),
+(1, 0, "ТОПОВЫЕ САНИ САНИ", "01.01.2021", 1),
+(1, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ РЕКОМЕНДУЮ", "01.01.2021", 5),
+(2, 0, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5),
+(3, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "02.03.2021", 3),
+(4, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 4),
+(5, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 2),
+(5, 0, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 4),
+(6, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5),
+(7, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5),
+(7, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 1),
+(7, 0, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5),
+(7, 0, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 3),
+(7, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5),
+(8, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 4),
+(9, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5),
+(10, 0, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 1),
+(10, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5),
+(11, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 2),
+(12, 0, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 3),
+(12, 1, "ТОПОВЫЕ САНИ РЕКОМЕНДУЮ", "01.01.2021", 5);
+
+
+// <---DONE
+
+
+
+
+

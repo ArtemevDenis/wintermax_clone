@@ -1,0 +1,17 @@
+.news {
+    margin-top: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+.news__title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.news__description {
+    margin-top: 45px;
+    font-size: 16px;
+    font-weight: normal;
+}

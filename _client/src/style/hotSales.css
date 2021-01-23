@@ -1,0 +1,16 @@
+.hotSales {
+    margin-top: 30px;
+}
+
+.hotSales__title {
+    font-size: 24px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.hotSales__products {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
