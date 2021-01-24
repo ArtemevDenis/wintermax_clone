@@ -7,7 +7,8 @@ import {useHttp} from "../hooks/http.hook";
 function Cart() {
     const [totalPrice, setTotalPrice] = useState(1000)
     const [sale, setSale] = useState(5)
-    const [cart, setCart] = useState([{id: '1213'}, {id: '3454535'}])
+    const [promoCode, setPromoCode] = useState("")
+    const [cartID, setCartID] = useState(-1)
     const address = useRef()
     const promo = useRef()
 
@@ -24,8 +25,12 @@ function Cart() {
                 {
                     Authorization: `Bearer ${user.token}`
                 })
-            console.log(data.productsList)
-            setProductList(data.productsList.split(','))
+            console.log(data.list)
+            setProductList(data.list)
+            setTotalPrice(data.totalPrice)
+            setSale(data.sale)
+            setCartID(data.cartID)
+            setPromoCode(data.promoCode)
             console.log('productList: ' + productList)
         } catch (e) {
         }
@@ -33,9 +38,33 @@ function Cart() {
 
     const deleteItemFromProductList = async (productID) => {
         console.log(productID)
+        await request('/api/cart/removeitem', 'DELETE', {cartID: cartID, productID},
+            {
+                Authorization: `Bearer ${user.token}`
+            })
+        getCart();
     }
 
 
+    const promoCodeHandler = (e) => {
+        e.preventDefault()
+        console.log("setPromoCode")
+        setPromoCode(promo.current.value)
+    }
+
+    const sendPromoCode = async () => {
+        console.log("sendPromoCode")
+        await request('/api/cart/promo', 'POST', {cartID: cartID, promoCode: promoCode},
+            {
+                Authorization: `Bearer ${user.token}`
+            })
+        promo.current.value = promoCode;
+    }
+
+
+    useEffect(() => {
+        sendPromoCode().then(getCart())
+    }, [promoCode])
 
     useEffect(() => {
         getCart()
@@ -61,12 +90,14 @@ function Cart() {
                                 placeholder='промокод'
                                 width={'300px'}
                                 type='string'/>
-                    <button className='button-primary' type="submit" style={{width: '200px'}}>Добавить промокод</button>
+                    <button className='button-primary' type="submit" style={{width: '200px'}}
+                            onClick={(e) => promoCodeHandler(e)}>Добавить промокод
+                    </button>
                 </div>
 
             </div>
             <p>Итоговая стоимость
-                с учетом скидки и промокода: {totalPrice - (totalPrice / 100 * sale)}</p>
+                с учетом скидки и промокода: {totalPrice}</p>
 
             <button className='button-primary' type="submit" style={{width: '410px'}}>Оформить</button>
         </form>

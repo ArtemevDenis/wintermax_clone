@@ -1,25 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {useHttp} from "../../hooks/http.hook";
 
-const ItemInCart = ({productID, deleteItem}) => {
+const ItemInCart = ({product, deleteItem}) => {
 
-    const [product, setProduct] = useState(null)
-    const {request, loading, error} = useHttp()
-
-
-    const getProduct = async () => {
-        try {
-            const product = await request(`/api/products/${productID}`, 'GET');
-            setProduct(product);
-        } catch (e) {
-            console.log(e)
-        }
-    }
-
-
-    useEffect(() => {
-        getProduct()
-    }, [])
 
     return (
         <div>
@@ -27,7 +10,7 @@ const ItemInCart = ({productID, deleteItem}) => {
             <p>Цена:{product && product.cost}</p>
             <button onClick={(e) => {
                 e.preventDefault()
-                deleteItem(productID)
+                deleteItem(product.ID)
             }}>удалить товар
             </button>
         </div>

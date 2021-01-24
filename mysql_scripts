@@ -118,12 +118,23 @@ create table carts (
 ID MEDIUMINT NOT NULL AUTO_INCREMENT,
 ownerID MEDIUMINT NOT NULL,
 productsList MEDIUMTEXT NOT NULL,
-promoCodeID VARCHAR(100) NOT NULL,
+promoCode VARCHAR(100) NOT NULL default "",
 isDelete TINYINT(1) default 0,
 PRIMARY KEY (ID))
 
-// <---DONE
+create table promoCodes (
+ID MEDIUMINT NOT NULL AUTO_INCREMENT,
+secret VARCHAR(100) NOT NULL,
+sale TINYINT UNSIGNED default 5,
+isDelete TINYINT(1) default 0,
+PRIMARY KEY (ID)
+);
 
+INSERT INTO promoCodes (secret, sale) VALUES
+("wintermax5", 5),
+("wintermax10", 10);
+
+// <---DONE
 
 
 

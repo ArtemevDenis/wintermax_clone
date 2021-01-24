@@ -4,8 +4,8 @@ const CartList = ({cart, deleteItem}) => {
     if (cart.length !== 0)
         return (
             <ol>
-                {cart.map((productID) => {
-                    return <li><ItemInCart key={productID} productID={productID} deleteItem={deleteItem}/></li>
+                {cart.map((product) => {
+                    return <li><ItemInCart key={product.ID} product={product} deleteItem={deleteItem}/></li>
                 })}
             </ol>
         )
