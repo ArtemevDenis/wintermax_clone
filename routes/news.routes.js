@@ -13,11 +13,11 @@ router.get(
                 function (err, results) {
                     if (err) {
                         console.error(err)
-                        res.status(500).json({message: 'Упс, что то пошло не так... соединение не установлено '})
+                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                     }
                     let news = results[0]
                     if (!news) {
-                        return res.status(400).json({message: 'Новость не найдена'})
+                        return res.status(400).json({error: 'Новость не найдена'})
                     }
 
                     res.json({title: news.title, date: news.date, text: news.text})
@@ -25,7 +25,7 @@ router.get(
 
 
         } catch (e) {
-            res.status(500).json({message: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
         }
     })
 
@@ -40,7 +40,7 @@ router.get(
                 function (err, results) {
                     if (err) {
                         console.error(err)
-                        res.status(500).json({message: 'Упс, что то пошло не так... соединение не установлено '})
+                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                     }
                     let news = results
 
@@ -50,7 +50,7 @@ router.get(
             console.log(`SecondWay: ${end - start}ms`);
 
         } catch (e) {
-            res.status(500).json({message: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
         }
 
     })

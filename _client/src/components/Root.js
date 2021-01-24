@@ -2,11 +2,11 @@ import React, {useContext} from "react";
 import {useRoutes} from "../hooks/routes";
 import {AdminMenuData} from "../data/AdminMenuData";
 import {NavLink} from "react-router-dom";
-import {AuthContext} from "../context/AuthContext";
+import {UserContext} from "../context/AuthContext";
 
 function Root() {
     const routes = useRoutes();
-    const {isAdmin} = useContext(AuthContext)
+    const {isAdmin} = useContext(UserContext)
     return (
         <main className='container inner'>
             {isAdmin &&

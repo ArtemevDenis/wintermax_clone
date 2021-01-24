@@ -2,12 +2,12 @@ import React, {useContext, useEffect, useState} from "react";
 import Order from "../components/profile/Order";
 import fakeOrder from "../data/fakeOrder";
 import {useHttp} from "../hooks/http.hook";
-import {AuthContext} from "../context/AuthContext";
+import {UserContext} from "../context/AuthContext";
 
 function Profile() {
     const [isSubscribe, setIsSubscribe] = useState();
     const {loading, error, request, clearError} = useHttp()
-    const auth = useContext(AuthContext)
+    const auth = useContext(UserContext)
 
 
     const getStatusIsSubscribe = async () => {

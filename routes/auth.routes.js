@@ -14,27 +14,27 @@ router.post(
                 function (err, results) {
                     if (err) {
                         console.error(err)
-                        res.status(500).json({message: 'Упс, что то пошло не так... соединение не установлено '})
+                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                     }
                     let user = results[0]
                     if (!user) {
-                        return res.status(400).json({message: 'Пользователь не найден'})
+                        return res.status(400).json({error: 'Пользователь не найден'})
                     }
                     const isMatch = user.password.indexOf(password) === 0
                     if (!isMatch) {
-                        return res.status(400).json({message: 'Не верный пароль'})
+                        return res.status(400).json({error: 'Не верный пароль'})
                     }
                     const token = jwt.sign(
                         {userID: user.id, userRole: user.role},
                         config.get('jwtSecret'),
-                        {expiresIn: '1h'}
+                        {expiresIn: '1000h'}
                     )
                     res.json({token, userID: user.ID, role: user.role, email: user.email})
                 });
 
 
         } catch (e) {
-            res.status(500).json({message: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
         }
     })
 

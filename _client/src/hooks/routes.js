@@ -13,10 +13,10 @@ import Profile from "../pages/Profile";
 import Cart from "../pages/Cart";
 import News from "../pages/News";
 import Login from "../pages/Login";
-import {AuthContext} from "../context/AuthContext";
+import {UserContext} from "../context/AuthContext";
 
 const AdminRoute = ({children, ...rest}) => {
-    const {isAdmin} = useContext(AuthContext)
+    const {isAdmin} = useContext(UserContext)
     return <Route {...rest}
                   render={
                       () => {
@@ -29,7 +29,7 @@ const AdminRoute = ({children, ...rest}) => {
 }
 
 const ProtectRoute = ({children, ...rest}) => {
-    const {isAuth} = useContext(AuthContext)
+    const {isAuth} = useContext(UserContext)
     return <Route {...rest}
                   render={
                       () => {

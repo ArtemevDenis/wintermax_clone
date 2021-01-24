@@ -1,21 +1,42 @@
-import React, {useContext} from "react";
-import {NavLink} from "react-router-dom";
+import React, {useContext, useState} from "react";
+import {NavLink, useHistory} from "react-router-dom";
 import ImageSlider from "../slider/ImageSlider";
 import Review from "./Review";
 import Rating from "../rating/Rating";
 import {useHttp} from "../../hooks/http.hook";
-import {AuthContext} from "../../context/AuthContext";
+import {UserContext} from "../../context/AuthContext";
+import {useCart} from "../../hooks/cart.hook";
 
 const ProductView = ({product, imgSet, reviews}) => {
-    const {request, loading, error} = useHttp()
-    const auth = useContext(AuthContext)
+    let history = useHistory();
+    const [redirect, setRedirect] = useState(false);
+    const {request, error, clearError} = useHttp()
+    const user = useContext(UserContext)
 
     const buyHandler = async () => {
-        const cart = {productID: product.ID, token: null}
-        if (auth.token)
-            cart.token = auth.token
-        await request(`/api/cart/add`, 'POST', cart);
+        if (!user.token)
+            history.push('/login')
+
+        const res = await request(`/api/cart/add`, 'POST', {productID: product.ID, userID: user.userID},
+            {
+                Authorization: `Bearer ${user.token}`
+            });
+        console.log(res.size)
+        user.setCartSize(res.size)
+        if (!res.message) {
+            alert("Произошла ошибка при добавлении товара")
+        } else if (redirect) {
+            setRedirect(false)
+            history.push('/cart')
+        }
+
     }
+
+    const buyAndCartHandler = () => {
+        setRedirect(true)
+        buyHandler();
+    }
+
 
     //TODO сделать обработчики кнопок + доделать рейтинг
     return (
@@ -30,8 +51,20 @@ const ProductView = ({product, imgSet, reviews}) => {
                 <div className='product__line'>
                     <p className='product__cost'>{product.cost}₽</p>
                     <div className='product__btn-block'>
-                        <button className='button-primary' style={{width: 300 + 'px'}}>Купить</button>
-                        <button className='button-primary' style={{width: 300 + 'px'}}>В корзину</button>
+                        <button
+                            className='button-primary'
+                            style={{width: 300 + 'px'}}
+                            onClick={buyAndCartHandler}
+                        >
+                            Купить
+                        </button>
+                        <button
+                            className='button-primary'
+                            style={{width: 300 + 'px'}}
+                            onClick={buyHandler}
+                        >
+                            В корзину
+                        </button>
                     </div>
                 </div>
             </div>

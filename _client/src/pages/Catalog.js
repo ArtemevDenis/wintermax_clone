@@ -7,7 +7,10 @@ function Catalog() {
 
     //TODO добавить загрузку товаров с сервера
     const [filter, setFilter] = useState(() => {
-        return JSON.parse(localStorage.getItem('filter'))
+        const filter = JSON.parse(localStorage.getItem('filter'))
+        if (filter)
+            return filter
+        return {types: [], minPrice: "", maxPrice: ""}
     })
     const [products, setProducts] = useState({})
 

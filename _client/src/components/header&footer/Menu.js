@@ -1,15 +1,17 @@
 import {UserMenuData} from "../../data/UserMenuData";
 import {NavLink, useHistory} from "react-router-dom";
-import React, {useContext} from "react";
-import {AuthContext} from "../../context/AuthContext";
+import React, {useContext, useEffect} from "react";
+import {UserContext} from "../../context/AuthContext";
+import {useCart} from "../../hooks/cart.hook";
 
 const Menu = ({listOrientation}) => {
     const history = useHistory()
-    const {logout, isAuth} = useContext(AuthContext)
-    const cartSize = 0
+    const {logout, isAuth, cartSize, setCartSize} = useContext(UserContext)
+
 
     const logoutHandler = event => {
         event.preventDefault()
+        setCartSize(0)
         logout()
         history.push('/home')
     }

@@ -13,17 +13,17 @@ router.get(
                 function (err, results) {
                     if (err) {
                         console.error(err)
-                        res.status(500).json({message: 'Упс, что то пошло не так... соединение не установлено '})
+                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                     }
                     if (!results) {
-                        return res.status(400).json({message: 'Товар не найден'})
+                        return res.status(400).json({error: 'Товар не найден'})
                     }
                     res.json(results)
                 });
 
 
         } catch (e) {
-            res.status(500).json({message: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
         }
     })
 
@@ -38,17 +38,17 @@ router.get(
                 function (err, results) {
                     if (err) {
                         console.error(err)
-                        res.status(500).json({message: 'Упс, что то пошло не так... соединение не установлено '})
+                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                     }
                     if (!results) {
-                        return res.status(400).json({message: 'Товар не найден'})
+                        return res.status(400).json({error: 'Товар не найден'})
                     }
                     res.json(results)
                 });
 
 
         } catch (e) {
-            res.status(500).json({message: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
         }
     })
 
@@ -62,18 +62,18 @@ router.get(
                 function (err, results) {
                     if (err) {
                         console.error(err)
-                        res.status(500).json({message: 'Упс, что то пошло не так... соединение не установлено '})
+                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                     }
                     let product = results[0]
                     if (!product) {
-                        return res.status(400).json({message: 'Товар не найден'})
+                        return res.status(400).json({error: 'Товар не найден'})
                     }
                     res.json(product)
                 });
 
 
         } catch (e) {
-            res.status(500).json({message: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
         }
     })
 
@@ -107,13 +107,13 @@ router.post(
                 function (err, results) {
                     if (err) {
                         console.error(err)
-                        res.status(500).json({message: 'Упс, что то пошло не так... соединение не установлено '})
+                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                     }
                     let products = results
                     res.json(products)
                 });
         } catch (e) {
-            res.status(500).json({message: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
         }
     })
 
@@ -128,7 +128,7 @@ router.get(
                 function (err, results) {
                     if (err) {
                         console.error(err)
-                        res.status(500).json({message: 'Упс, что то пошло не так... соединение не установлено '})
+                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                     }
                     let products = results
 
@@ -137,7 +137,29 @@ router.get(
 
 
         } catch (e) {
-            res.status(500).json({message: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+        }
+    })
+
+router.get(
+    '/list',
+    async (req, res) => {
+        try {
+            const {productList} = req.body
+            const sql = 'select * from products where ID IN(' + productList + ')'
+            await global.connectionMYSQL.execute(sql,
+                function (err, results) {
+                    if (err) {
+                        console.error(err)
+                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
+                    }
+                    const products = results
+                    res.json(products)
+                });
+
+
+        } catch (e) {
+            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
         }
     })
 

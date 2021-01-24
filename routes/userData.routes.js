@@ -17,20 +17,20 @@ router.post("/", authMiddleware, async (req, res) => {
                 function (err, results) {
                     if (err) {
                         console.error(err)
-                        res.status(500).json({message: 'Упс, что то пошло не так... соединение не установлено '})
+                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                     }
                     let isSubscribe = results[0]
                     if (!isSubscribe) {
-                        return res.status(400).json({message: 'Пользователь не найден'})
+                        return res.status(400).json({error: 'Пользователь не найден'})
                     }
                     // console.log("isSubscribe:" + JSON.parse(isSubscribe));
                     console.log(isSubscribe)
                     res.json(isSubscribe)
                 });
         } else
-            res.status(500).json({message: 'Упс, что то пошло не так...'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
     } catch (e) {
-        res.status(500).json({message: 'Упс, что то пошло не так...'})
+        res.status(500).json({error: 'Упс, что то пошло не так...'})
     }
 })
 
@@ -48,19 +48,19 @@ router.patch("/setSubscribe", async (req, res) => {
                 function (err, results) {
                     if (err) {
                         console.error(err)
-                        res.status(500).json({message: 'Упс, что то пошло не так... соединение не установлено '})
+                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                     }
                     console.log(results.affectedRows === 0)
                     if (results.affectedRows === 0) {
-                        return res.status(400).json({message: 'Пользователь не найден'})
+                        return res.status(400).json({error: 'Пользователь не найден'})
                     }
 
                     res.status(201).json({message: 'Ok'})
                 });
         } else
-            res.status(500).json({message: 'Упс, что то пошло не так...'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
     } catch (e) {
-        res.status(500).json({message: 'Упс, что то пошло не так...'})
+        res.status(500).json({error: 'Упс, что то пошло не так...'})
     }
 })
 

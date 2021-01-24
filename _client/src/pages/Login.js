@@ -1,13 +1,14 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {useHistory} from "react-router-dom";
-import {AuthContext} from "../context/AuthContext";
+import {UserContext} from "../context/AuthContext";
 import {useHttp} from "../hooks/http.hook";
 
 
 function Login() {
     let history = useHistory();
-    const auth = useContext(AuthContext)
+    const user = useContext(UserContext)
     const {loading, error, request, clearError} = useHttp()
+    const [finishLoad, setFinishLoad] = useState(false)
 
     const [form, setForm] = useState({
         email: '', password: ''
@@ -24,13 +25,25 @@ function Login() {
     const loginHandler = async () => {
         try {
             const data = await request('/api/auth/login', 'POST', {...form})
-            auth.login(data.token, data.userID, data.role, data.email)
+            await user.login(data.token, data.userID, data.role, data.email)
 
+            setFinishLoad(true)
             history.push('/profile')
         } catch (e) {
             console.error(e)
         }
     }
+    const loadCartSize = async () => {
+        const cartSize = await request('/api/cart/size', 'POST', {userID: user.userID}, {
+            Authorization: `Bearer ${user.token}`
+        })
+        user.setCartSize(cartSize.size);
+        console.log('cartSize.size: ' + cartSize.size)
+    }
+
+    useEffect(() => {
+        loadCartSize()
+    }, [finishLoad])
 
     return (
         <div>

@@ -32,6 +32,7 @@ export const useAuth = () => {
 
         localStorage.removeItem(storageName)
         localStorage.removeItem("filter")
+        localStorage.setItem("filter", JSON.stringify({types: [], minPrice: "", maxPrice: ""}))
         localStorage.removeItem("user")
     }, [])
 
