@@ -1,7 +1,32 @@
 const {Router} = require('express')
-
+const adminMiddleware = require('../middleware/adminAuth.middleware')
 const router = Router()
 
+router.get(
+    '/all',
+    adminMiddleware,
+    async (req, res) => {
+        try {
+
+            const getAllNews = 'select * from news'
+
+            await global.connectionMYSQL.execute(getAllNews, [],
+                async function (err, results) {
+                    if (err) {
+                        console.error(err)
+                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
+                    }
+                    console.log(' results')
+                    console.log(results)
+                    res.json(results)
+
+                }
+            )
+        } catch (e) {
+            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+        }
+    }
+)
 
 router.get(
     '/:id',
@@ -54,5 +79,59 @@ router.get(
         }
 
     })
+
+router.post(
+    '/create',
+    adminMiddleware,
+    async (req, res) => {
+        try {
+            const {title, description} = req.body;
+            const date = new Date().toISOString().slice(0, 10).replace('T', ' ');
+
+            const insertNews = ' INSERT INTO news (title, date, text) VALUES (?, ?, ?)'
+
+            await global.connectionMYSQL.execute(insertNews, [title, date, description],
+                async function (err, results) {
+                    if (err) {
+                        console.error(err)
+                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
+                    }
+
+                    if (results.affectedRows === 1)
+                        res.json({code: 200})
+                }
+            )
+        } catch (e) {
+            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+        }
+    }
+)
+
+router.get(
+    '/delete/:ID',
+    adminMiddleware,
+    async (req, res) => {
+        try {
+
+            const newsID = req.params.ID
+            const deleteNews = ' delete from news where ID = ? '
+            await global.connectionMYSQL.execute(deleteNews, [newsID],
+                async function (err, results) {
+                    if (err) {
+                        console.error(err)
+                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
+                    }
+                    console.log(results)
+                    if (results.affectedRows > 0)
+                        res.json({code: 200})
+
+                }
+            )
+        } catch (e) {
+            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+        }
+    }
+)
+
 
 module.exports = router;

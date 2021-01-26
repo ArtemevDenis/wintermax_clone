@@ -11,16 +11,13 @@ export const useHttp = () => {
             if (body) {
                 body = JSON.stringify(body)
                 headers['Content-Type'] = 'application/json'
-                console.log(body)
+
             }
-            const start = new Date().getTime();
             const response = await fetch(url, {
                 method,
                 body,
                 headers,
             })
-            const end = new Date().getTime();
-            console.log(`SecondWay: ${end - start}ms`);
             const data = await response.json()
             if (!response.ok) {
                 new Error(data.message || 'Что то пошло не так')

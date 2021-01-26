@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken')
 const config = require('config')
 
-const User = require('../models/User')
 
 
 module.exports = async (req, res, next) => {
@@ -18,15 +17,15 @@ module.exports = async (req, res, next) => {
 
         req.user = jwt.verify(token, config.get('jwtSecret'))
         console.log(req.user)
+        //
+        // let user = await User.findById(req.user.userID)
+        //
+        // if (!user) {
+        //     console.log('ups')
+        // }
+        // console.log(user)
 
-        let user = await User.findById(req.user.userID)
-
-        if (!user) {
-            console.log('ups')
-        }
-        console.log(user)
-
-        let role = user.role;
+        let role =  req.user.userRole;
         if (role === 'admin')
             next()
         else

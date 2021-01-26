@@ -15,4 +15,8 @@ export const AdminMenuData = [
         title: "Промокоды",
         path: "/admin/promo",
     },
+    {
+        title: "Слайдер",
+        path: "/admin/slider",
+    },
 ]

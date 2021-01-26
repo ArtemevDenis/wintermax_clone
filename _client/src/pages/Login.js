@@ -24,15 +24,19 @@ function Login() {
 
     const loginHandler = async () => {
         try {
-            const data = await request('/api/auth/login', 'POST', {...form})
-            await user.login(data.token, data.userID, data.role, data.email)
+            await request('/api/auth/login', 'POST', {...form})
+                .then((data) => {
+                    user.login(data.token, data.userID, data.role, data.email)
+                })
+                .then(loadCartSize())
 
-            setFinishLoad(true)
+
             history.push('/profile')
         } catch (e) {
             console.error(e)
         }
     }
+
     const loadCartSize = async () => {
         const cartSize = await request('/api/cart/size', 'POST', {userID: user.userID}, {
             Authorization: `Bearer ${user.token}`
@@ -40,10 +44,6 @@ function Login() {
         user.setCartSize(cartSize.size);
         console.log('cartSize.size: ' + cartSize.size)
     }
-
-    useEffect(() => {
-        loadCartSize()
-    }, [finishLoad])
 
     return (
         <div>

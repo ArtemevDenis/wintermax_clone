@@ -1,10 +1,18 @@
 .profile {
-    margin: 30px 0 ;
+    margin: 30px 0;
+}
+
+.profile__body {
+    padding: 20px;
     background: white;
-    padding: 32px ;
+
 }
 
 .profile__title {
     font-weight: normal;
     font-size: 26px;
+}
+
+.profile__orders {
+
 }

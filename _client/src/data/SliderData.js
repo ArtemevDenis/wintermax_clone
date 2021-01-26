@@ -1,12 +1,10 @@
 export const SliderData = [
     {
         img: 'UstXiYm.jpg',
-        link: '1',
-        alt: 'sdfsdf'
+        link: 'catalog/1'
     },
     {
         img: 'UstXiYm.jpg',
-        link: '1',
-        alt: 'wewrwerwerwerwe'
+        link: 'catalog/12'
     }
 ]

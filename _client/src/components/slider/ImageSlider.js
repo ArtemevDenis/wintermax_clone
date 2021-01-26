@@ -39,12 +39,12 @@ const ImageSlider = ({wSize = '100%', hSize = '100%', dataSet, noLinks = false})
                 {noLinks ? <img
                     className='slider__image'
                     src={'/images/' + dataSet[currentIndex].img}
-                    alt={dataSet[currentIndex].alt}
+                    alt=''
                 /> : <NavLink to={dataSet[currentIndex].link}>
                     <img
                         className='slider__image'
                         src={'images/' + dataSet[currentIndex].img}
-                        alt={dataSet[currentIndex].alt}
+                        alt=''
 
                     /> </NavLink>}
             </div>

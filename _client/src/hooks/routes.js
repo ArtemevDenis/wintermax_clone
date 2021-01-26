@@ -14,6 +14,7 @@ import Cart from "../pages/Cart";
 import News from "../pages/News";
 import Login from "../pages/Login";
 import {UserContext} from "../context/AuthContext";
+import SliderEdit from "../pages/admin/SliderEdit";
 
 const AdminRoute = ({children, ...rest}) => {
     const {isAdmin} = useContext(UserContext)
@@ -76,6 +77,9 @@ export const useRoutes = () => {
         </AdminRoute>
         <AdminRoute path={"/admin/promo"} exact>
             <Promo/>
+        </AdminRoute>
+        <AdminRoute path={"/admin/slider"} exact>
+            <SliderEdit/>
         </AdminRoute>
         <ProtectRoute path={"/profile"} exact>
             <Profile/>

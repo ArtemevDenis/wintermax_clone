@@ -119,6 +119,7 @@ ID MEDIUMINT NOT NULL AUTO_INCREMENT,
 ownerID MEDIUMINT NOT NULL,
 productsList MEDIUMTEXT NOT NULL,
 promoCode VARCHAR(100) NOT NULL default "",
+totalPrice VARCHAR(100) NOT NULL default "",
 isDelete TINYINT(1) default 0,
 PRIMARY KEY (ID))
 
@@ -134,18 +135,28 @@ INSERT INTO promoCodes (secret, sale) VALUES
 ("wintermax5", 5),
 ("wintermax10", 10);
 
-// <---DONE
-
-
 
 create table orders (
 ID MEDIUMINT NOT NULL AUTO_INCREMENT,
 ownerID MEDIUMINT NOT NULL,
 productsList MEDIUMTEXT NOT NULL,
 addressDelivery VARCHAR(1000) NOT NULL,
-dateDelivery VARCHAR(11) NOT NULL,
-date VARCHAR(11) NOT NULL,
+dateDelivery DATE  NOT NULL,
+date DATE  NOT NULL,
 status TINYINT(1) default 0,
 totalPrice INT UNSIGNED NOT NULL,
 PRIMARY KEY (ID));
+
+
+
+create table slider (
+ID MEDIUMINT NOT NULL AUTO_INCREMENT,
+img VARCHAR(100) NOT NULL,
+link VARCHAR(100) NOT NULL,
+PRIMARY KEY (ID)
+);
+
+// <---DONE
+
+
 
