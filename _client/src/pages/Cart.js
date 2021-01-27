@@ -86,56 +86,59 @@ function Cart() {
 
 
     return (
-        <form>
+        <div className='cart'>
             {date}
             <h2>Пользовательские данные</h2>
-            <div>Адрес доставки:
+            <div className='cart__line'>Адрес доставки:
                 <input
                     className='input__number--100'
-                    type={'string'}
+                    type='string'
                     ref={address}
-                    placeholder={"введите адрес доставки"}
+                    placeholder="введите адрес доставки"
                     style={{width: 200 + 'px'}}
                 />
             </div>
-            <div><p>дата доставки:</p><input type={'date'} onChange={(e) => {
-                setDate(e.target.value)
-            }}/></div>
+            <div className='cart__line'><p>дата доставки:</p><input
+                className='datepicker'
+                type='date'
+                onChange={(e) => {
+                    setDate(e.target.value)
+                }}/></div>
             <h2>Ваш заказ:</h2>
 
             {productList && <CartList cart={productList} deleteItem={deleteItemFromProductList}/>}
 
-            <div><p>Итог:</p><p>{totalPrice}</p></div>
-            <div><p>скидка:</p><p>{sale}%</p></div>
-            <div><p>промокод:</p>
-                <div>
+            <div className='cart__line'><p className='cart__title'>Скидка:</p><p>{sale}%</p></div>
+            <div className='cart__line'><p className='cart__title'>Промокод:</p>
 
-                    <input
-                        onChange={(e) => {
-                            setPromoCode(e.target.value)
-                        }}
-                        value={promoCode}
-                        className='input__number--100'
-                        type={'string'}
+                <input
+                    onChange={(e) => {
+                        setPromoCode(e.target.value)
+                    }}
+                    value={promoCode}
+                    className='input__number--100'
+                    type='string'
 
-                        placeholder={"введите промокод"}
-                        style={{width: 300 + 'px'}}
-                    />
-                    <button className='button-primary' type="submit" style={{width: '200px'}}
-                            onClick={(e) => {
-                                promoCodeHandler(e)
-                            }}>Добавить промокод
-                    </button>
-                </div>
+                    placeholder="введите промокод"
+                    style={{width: 300 + 'px'}}
+                />
+
 
             </div>
-            <p>Итоговая стоимость
-                с учетом скидки и промокода: {totalPrice}</p>
+            <div className='cart__line'><p></p>
+                <button className='button-primary' type="submit" style={{width: '310px'}}
+                        onClick={(e) => {
+                            promoCodeHandler(e)
+                        }}>Добавить промокод
+                </button>
+            </div>
+            <div className='cart__line'><p className='cart__title'>Итоговая стоимость
+                с учетом скидки и промокода: </p><p className='cart__title'>{totalPrice}₽</p></div>
 
             <button
                 className='button-primary'
                 type="submit"
-                style={{width: '410px'}}
+                style={{width: '500px'}}
                 onClick={(e) => {
                     e.preventDefault()
                     submitHandler()
@@ -144,7 +147,7 @@ function Cart() {
             >
                 Оформить
             </button>
-        </form>
+        </div>
     );
 }
 

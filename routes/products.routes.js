@@ -2,6 +2,151 @@ const {Router} = require('express')
 
 const router = Router()
 
+const multer = require('multer');
+
+// var upload = multer({ dest: './public/' })
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '_' + file.originalname)
+    }
+})
+
+
+const upload = multer({storage: storage})
+
+router.post(
+    '/create', upload.any(),
+    async (req, res) => {
+        try {
+            const {title, description, cost, productID, type} = req.body
+            const img = req.files;
+            console.log('title')
+            console.log(title)
+
+
+            if (productID === 'create') {
+                const insertIntoProducts = 'insert into products (title, description, cost, type, popular) values (?, ?,?, ?,?)'
+
+                new Promise(async resolve => {
+                    await global.connectionMYSQL.execute(insertIntoProducts, [title, description, cost, type, 0],
+                        function (err, results) {
+                            if (err) {
+                                console.error(err)
+                                res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
+                            }
+                            console.log(results)
+                            resolve(results.insertId)
+                        });
+                }).then(productID => {
+                        new Promise(async resolve => {
+                            for (let i = 0; i < img.length; i++) {
+                                const insertIntoProductsImg = 'insert into productsimg (img, productID) VALUES (?,?)'
+                                await global.connectionMYSQL.execute(insertIntoProductsImg, [img[i].filename, productID],
+                                    function (err, results) {
+                                        if (err) {
+                                            console.error(err)
+                                            res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
+                                        }
+                                        console.log(results)
+                                    });
+                            }
+                            resolve({code: 200})
+                        })
+                    }
+                ).then(r => res.json(r))
+            }
+
+
+        } catch (e) {
+            res.status(500).json({error: 'Упс, что то пошло не так... kek ergergerger'})
+        }
+    }
+)
+
+
+router.get(
+    '/all',
+    async (req, res) => {
+        try {
+            const sql = 'select * from products'
+            await global.connectionMYSQL.execute(sql, [],
+                function (err, results) {
+                    if (err) {
+                        console.error(err)
+                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
+                    }
+                    let products = results
+
+                    res.json(products)
+                });
+
+
+        } catch (e) {
+            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+        }
+    })
+
+
+router.delete(
+    '/:id',
+    async (req, res) => {
+        try {
+            console.log('delete ')
+            const id = req.params.id
+            console.log(id)
+            const sql = "delete from products where ID = ?"
+            await global.connectionMYSQL.execute(sql, [id],
+                function (err, results) {
+                    if (err) {
+                        console.error(err)
+                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
+                    }
+                    console.log(results)
+                    let product = results[0]
+                    if (!product) {
+                        return res.status(400).json({error: 'Товар не найден'})
+                    }
+                    res.json(product)
+                });
+
+
+        } catch (e) {
+            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+        }
+    })
+
+router.post(
+    '/list',
+    async (req, res) => {
+        try {
+            const {productsList} = req.body
+            const arrProductList = productsList.split(',');
+            let reqMysql = '('
+            for (let i = 0; i < arrProductList.length - 1; i++) {
+                reqMysql += ` SELECT ${arrProductList[i]} id UNION ALL `
+            }
+            reqMysql += `SELECT ${arrProductList[arrProductList.length - 1]} id) t2`;
+            const select = ` select products.* from products, ${reqMysql}  where  products.ID = t2.id `
+
+
+            await global.connectionMYSQL.execute(select,
+                function (err, results) {
+                    if (err) {
+                        console.error(err)
+                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
+                    }
+                    res.json(results)
+                });
+
+
+        } catch (e) {
+            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+        }
+    })
 
 router.get(
     '/imgs/:id',
@@ -141,26 +286,5 @@ router.get(
         }
     })
 
-router.get(
-    '/list',
-    async (req, res) => {
-        try {
-            const {productList} = req.body
-            const sql = 'select * from products where ID IN(' + productList + ')'
-            await global.connectionMYSQL.execute(sql,
-                function (err, results) {
-                    if (err) {
-                        console.error(err)
-                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
-                    }
-                    const products = results
-                    res.json(products)
-                });
-
-
-        } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
-        }
-    })
 
 module.exports = router;

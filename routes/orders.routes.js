@@ -97,7 +97,7 @@ router.get(
             const {email, password} = req.body;
 
 
-            await global.connectionMYSQL.execute("SELECT * FROM orders order by date",
+            await global.connectionMYSQL.execute("SELECT * FROM orders order by date DESC",
                 function (err, results) {
                     if (err) {
                         console.error(err)

@@ -22,6 +22,7 @@ app.use('/api/cart', require('./routes/cart.routes'))
 app.use('/api/orders', require('./routes/orders.routes'))
 app.use('/api/promo', require('./routes/promoCodes.routes'))
 app.use('/api/slider', require('./routes/slider.routes'))
+app.use('/api/reviews', require('./routes/reviews.routes'))
 
 
 

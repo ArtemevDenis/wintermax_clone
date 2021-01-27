@@ -20,6 +20,15 @@
 @import "style/order.css";
 @import "style/profile.css";
 @import "style/orderStatus.css";
+@import "style/adminMenu.css";
+@import "style/rightReview.css";
+@import "style/select.css";
+@import "style/textarea.css";
+@import "style/column.css";
+@import "style/cart.css";
+@import "style/adminOrders.css";
+@import "style/goods.css";
+
 
 * {
     margin: 0;
@@ -52,24 +61,39 @@
     flex: 0 0 auto;
 }
 
-.button-primary {
+.button-primary, .button-danger {
     display: block;
     font-size: 20px;
     width: 100%;
-    background: #3A96FF;
     padding: 18px 0;
-    color: white;
     border: none;
     cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
 }
 
-.button-primary:not(:last-child) {
-    margin-bottom: 5px;
+.button-primary {
+    color: white;
+    background: #3A96FF;
+    transition: 0.2s linear;
+}
+
+.button-danger {
+    background: #ff3a3a;
+    color: #ffffff;
+    transition: 0.2s linear;
 }
 
 .button-primary:hover {
     background: #020251;
 }
+
+.button-danger:hover {
+    background: #db5959;
+    color: #000000;
+}
+
 
 .back-link {
     display: block;
@@ -81,3 +105,16 @@
     margin-bottom: 20px;
 }
 
+.button-primary:not(:last-child) {
+    margin-bottom: 5px;
+}
+
+.datepicker {
+    width: 205px;
+    display: block;
+    padding: 5px;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+}
+
+.datepicker:hover

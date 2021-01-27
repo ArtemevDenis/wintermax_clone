@@ -60,12 +60,12 @@ function Orders() {
     }
 
     return (
-        <div>
-            Orders
+        <div className='admin-orders'>
+            <div className='admin-orders__order'><h2>Заказы</h2></div>
             {orders &&
-            <ol>{orders.map((order) => {
-                return <li key={order.ID}><AdminOrder order={order} updateStatus={updateStatus}/></li>
-            })}</ol>}
+            orders.map((order) => {
+                return <AdminOrder key={order.ID} order={order} updateStatus={updateStatus}/>
+            })}
         </div>
     );
 }

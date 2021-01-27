@@ -1,19 +1,21 @@
-import React, {useEffect, useState} from 'react'
-import {useHttp} from "../../hooks/http.hook";
+import React from 'react'
 
-const ItemInCart = ({product, deleteItem}) => {
+const ItemInCart = ({product, deleteItem, index}) => {
 
 
     return (
-        <div>
-            <p>Наименование:{product && product.title}</p>
-            <p>Цена:{product && product.cost}</p>
-            <button onClick={(e) => {
-                e.preventDefault()
-                deleteItem(product.ID)
-            }}>удалить товар
+        <>
+            <p className='cart__item'>{index}</p>
+            <p className='cart__item'>{product && product.title}</p>
+            <p className='cart__item' s>{product && product.cost}₽</p>
+            <button
+                className='button-danger'
+                onClick={(e) => {
+                    e.preventDefault()
+                    deleteItem(product.ID)
+                }}>удалить товар
             </button>
-        </div>
+        </>
     )
 }
 

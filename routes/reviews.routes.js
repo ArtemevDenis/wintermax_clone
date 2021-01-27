@@ -3,22 +3,10 @@ const jwt = require('jsonwebtoken')
 const config = require('config')
 
 const adminMiddleware = require('../middleware/adminAuth.middleware')
+const AuthMiddleware = require('../middleware/auth.middleware')
 const router = Router()
 
-const multer = require('multer');
 
-// var upload = multer({ dest: './public/' })
-
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/')
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + '_' + file.originalname)
-    }
-})
-
-const upload = multer({storage: storage})
 
 router.get('/', async function (req, res) {
     new Promise(async (resolve, reject) => {
@@ -38,13 +26,14 @@ router.get('/', async function (req, res) {
     })
 })
 
-router.post('/upload', upload.single('imgSlider'), async function (req, res) {
-    const link = req.body.link
-    const img = req.file.filename
-    const insertSliderImage = 'insert into slider (img, link) VALUE (?,?)'
+router.post('/', AuthMiddleware, async function (req, res) {
+    const {productID, authorID, text, rating} = req.body
+    const date = new Date().toISOString().slice(0, 10).replace('T', ' ');
 
+
+    const insertReviews = 'insert into reviews (productID, authorID, text, date, rating) VALUE (?,?,?,?,?)'
     new Promise((resolve, reject) => {
-        global.connectionMYSQL.execute(insertSliderImage, [img, link],
+        global.connectionMYSQL.execute(insertReviews, [productID, authorID, text, date, rating],
             async function (err, results) {
                 if (err) {
                     reject(err)

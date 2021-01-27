@@ -1,20 +1,14 @@
 import React, {useContext} from "react";
 import {useRoutes} from "../hooks/routes";
-import {AdminMenuData} from "../data/AdminMenuData";
-import {NavLink} from "react-router-dom";
 import {UserContext} from "../context/AuthContext";
+import AdminMenu from "./admin/AdminMenu";
 
 function Root() {
     const routes = useRoutes();
     const {isAdmin} = useContext(UserContext)
     return (
         <main className='container inner'>
-            {isAdmin &&
-            <ul>
-                {AdminMenuData.map((item, index) => {
-                    return <li key={index}><NavLink to={item.path}>{item.title}</NavLink></li>
-                })}
-            </ul>}
+            {isAdmin && <AdminMenu/>}
             {routes}
         </main>
     );

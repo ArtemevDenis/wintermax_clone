@@ -1,0 +1,32 @@
+.goods__item {
+    display: grid;
+    grid-template-columns: 50px 1fr 1fr 200px 200px;
+    grid-template-rows: 1fr;
+    gap: 30px;
+    margin: 10px 0;
+    background: white;
+    padding: 10px;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.goods__text {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.goods__title {
+    font-weight: bold;
+    font-size: 24px;
+    display: block;
+}
+
+.goods__line {
+    display: flex;
+    background: white;
+    gap: 50px;
+    justify-content: space-between;
+    padding: 10px;
+    box-sizing: border-box;
+    align-items: center;
+}

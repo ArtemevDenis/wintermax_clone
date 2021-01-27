@@ -20,4 +20,5 @@
 .order_text {
     font-size: 16px;
     font-weight: normal;
+    list-style: none;
 }

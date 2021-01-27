@@ -1,9 +1,34 @@
 const {Router} = require('express')
 const authMiddleware = require('../middleware/auth.middleware')
+const adminMiddleware = require('../middleware/adminAuth.middleware')
 
 const router = Router()
-//authMiddleware,
 
+
+router.get("/:id", adminMiddleware, async (req, res) => {
+    try {
+        const userID = req.params.id
+        if (userID) {
+            const sql = "select * from users where ID = ?";
+
+
+            await global.connectionMYSQL.execute(sql, [userID],
+                function (err, results) {
+                    if (err) {
+                        console.error(err)
+                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
+                    }
+                    if (results.length > 0) {
+                        res.json(results[0])
+                    }
+
+                });
+        } else
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
+    } catch (e) {
+        res.status(500).json({error: 'Упс, что то пошло не так...'})
+    }
+})
 
 router.post("/", authMiddleware, async (req, res) => {
     try {
