@@ -60,13 +60,6 @@ async function start() {
         app.listen(PORT, () => {
             console.log(`Start server on port ${PORT}...`);
         })
-        // connection.connect(function (err) {
-        //     if (err) {
-        //         return console.error("Ошибка: " + err.message);
-        //     } else {
-        //         console.log("Подключение к серверу MySQL успешно установлено");
-        //     }
-        // });
     } catch (e) {
         console.error('Server Error', e.message)
         process.exit(1);

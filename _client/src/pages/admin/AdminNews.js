@@ -91,35 +91,50 @@ function AdminNews() {
     }, [])
 
     return (
-        <div>
-            <h2>Новости</h2>
+        <div className='admin-news'>
+            <h2 className='admin-news__title'>Новости</h2>
             <form>
                 <div>
-                    <input id="title"
-                           maxlength="30"
-                           type="text"
-                           name='title'
-                           value={form.title}
-                           onChange={changeHandler}
-                    />
-                    <label htmlFor="email">Назаванеи</label>
+                    <label>Заголовок:
+                        <input
+                            className='input'
+                            id="title"
+                            maxlength="30"
+                            type="text"
+                            name='title'
+                            value={form.title}
+                            onChange={changeHandler}
+                        />
+                    </label>
+
                 </div>
                 <div>
-                    <textarea id="description"
-                              type="text"
-                              name='description'
-                              value={form.description}
-                              onChange={changeHandler}
-                    />
-                    <label htmlFor="password">Текст новости</label>
+                    <label>Текст новости:
+                        <textarea
+                            className='textarea'
+                            id="description"
+                            type="text"
+                            name='description'
+                            value={form.description}
+                            onChange={changeHandler}
+                        />
+                    </label>
+
                 </div>
-                <button onClick={createNews}>Создать новость</button>
+                <button
+                    className='button-primary'
+                    onClick={createNews}>Создать новость
+                </button>
             </form>
             {news &&
-            <ol>
-                {news.map(news =>
-                    <li key={news.ID}><AdminNewsItem news={news} deleteNews={deleteNews}/></li>)}
-            </ol>}
+
+            <div className='admin-news__list'>
+                <div>ID</div>
+                <div>Название</div>
+                <div>Удалить</div>
+                {news.map((news, index) =>
+                <AdminNewsItem news={news} deleteNews={deleteNews} index={index+1}/>)
+            }</div>}
         </div>
     );
 }

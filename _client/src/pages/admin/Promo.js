@@ -64,7 +64,6 @@ function Promo() {
     }
 
     const deletePromo = (promoID) => {
-        console.log(1212)
         new Promise(async (resolve, reject) => {
                 try {
                     const data = await request(`/api/promo/delete/${promoID}`, 'GET', null,
@@ -92,36 +91,37 @@ function Promo() {
         getPromoCodes()
     }, [])
     return (
-        <div>
-            <h2>Промокоды</h2>
+        <div className='admin-promo'>
+            <h2 className='admin-promo__title'>Промокоды</h2>
             <form>
-                <div>
-                    <input id="secret"
-                           type="text"
-                           name='secret'
-                           value={form.secret}
-                           onChange={changeHandler}
-                    />
-                    <label htmlFor="secrete">Название</label>
-                </div>
-                <div>
-                    <input id="sale"
-                           type="number"
-                           max={100}
-                           min={0}
-                           name='sale'
-                           value={form.sale}
-                           onChange={changeHandler}
-                    />
-                    <label htmlFor="sale">Скидка</label>
-                </div>
-                <button onClick={createPromo}>Создать промокод</button>
+                <label>Название:<input
+
+                    className='input'
+                    id="secret"
+                    type="text"
+                    name='secret'
+                    value={form.secret}
+                    onChange={changeHandler}
+                /></label>
+
+
+                <label>Скидка:<input
+                    className='input'
+                    id="sale"
+                    type="number"
+                    max={100}
+                    min={0}
+                    name='sale'
+                    value={form.sale}
+                    onChange={changeHandler}
+                /></label>
+                <button className='button-primary' onClick={createPromo}>Создать промокод</button>
             </form>
             {promos &&
-            <ol>
-                {promos.map(promo =>
-                    <li key={promo.ID}><PromoCode promo={promo} deletePromo={deletePromo}/></li>)}
-            </ol>}
+            <div className='admin-promo__list'>
+                {promos.map((promo, index) =>
+                    <PromoCode key={promo.ID} promo={promo} deletePromo={deletePromo} index={index + 1}/>)}
+            </div>}
         </div>
     );
 }

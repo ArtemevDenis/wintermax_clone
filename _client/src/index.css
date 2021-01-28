@@ -28,6 +28,10 @@
 @import "style/cart.css";
 @import "style/adminOrders.css";
 @import "style/goods.css";
+@import "style/adminProduct.css";
+@import "style/adminNews.css";
+@import "style/adminPromo.css";
+@import "style/adminSlider.css";
 
 
 * {
@@ -117,4 +121,27 @@
     cursor: pointer;
 }
 
-.datepicker:hover
+
+.input {
+    min-width: 100%;
+    max-width: 100%;
+    resize: none;
+    font-size: 16px;
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid #aaa;
+    box-shadow: 0 1px 0 1px rgba(0, 0, 0, .04);
+    border-radius: .5em;
+}
+
+.input:hover {
+    border-color: #888;
+}
+
+.input:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222;
+    outline: none;
+}

@@ -38,6 +38,26 @@ router.get('/', async function (req, res) {
     })
 })
 
+
+router.delete('/:id', async function (req, res) {
+    const id = req.params.id
+    new Promise(async (resolve, reject) => {
+        const deleteSlider = 'delete from slider where ID = ?'
+        await global.connectionMYSQL.execute(deleteSlider, [id],
+            async function (err, results) {
+                if (err) {
+                    reject(err )
+                }
+
+                resolve({code: results})
+            }
+        )
+    }).then(r => {
+        res.json(r)
+    })
+})
+
+
 router.post('/upload', upload.single('imgSlider'), async function (req, res) {
     const link = req.body.link
     const img = req.file.filename
@@ -51,7 +71,7 @@ router.post('/upload', upload.single('imgSlider'), async function (req, res) {
                 }
                 console.log(results)
                 if (results.affectedRows > 0)
-                    resolve({code: 200})
+                    resolve({code: 200 })
             }
         )
     }).then(r => {

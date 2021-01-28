@@ -1,11 +1,13 @@
 import React from "react";
 
-function AdminNewsItem({news, deleteNews}) {
+function AdminNewsItem({news, deleteNews, index}) {
     return (
-        <div>
-            {news.ID}, {news.title}
-            <button onClick={() => deleteNews(news.ID)}>удалить</button>
-        </div>
+        <>
+            <p>{index}</p> <p>{news.title}</p>
+            <button
+            className='button-danger'
+                onClick={() => deleteNews(news.ID)}>удалить</button>
+        </>
     );
 }
 

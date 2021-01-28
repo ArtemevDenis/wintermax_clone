@@ -1,11 +1,20 @@
 import React from "react";
 
-function PromoCode({promo, deletePromo}) {
+const PromoCode = ({promo, deletePromo, index}) => {
     return (
-        <div>
-            ID №{promo.ID}, кодовое слово: {promo.secret} , скидка: {promo.sale}
-            <button onClick={() => deletePromo(promo.ID)}>удалить</button>
-        </div>
+        <>
+            <div>{index}</div>
+            <div>{promo.secret}</div>
+            <div>{promo.sale}</div>
+            <button
+                className='button-danger'
+                onClick={(e) => {
+                    e.preventDefault();
+                    deletePromo(promo.ID)
+                }}>
+                удалить
+            </button>
+        </>
     );
 }
 

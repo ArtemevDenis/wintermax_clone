@@ -58,10 +58,39 @@ router.post(
                         })
                     }
                 ).then(r => res.json(r))
+            } else {
+                const updateIntoProducts = 'update products SET title = ?, description = ?, cost = ?, type =? where ID = ?'
+
+                new Promise(async resolve => {
+                    await global.connectionMYSQL.execute(updateIntoProducts, [title, description, cost, type, productID],
+                        function (err, results) {
+                            if (err) {
+                                console.error(err)
+                                res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
+                            }
+                            console.log(results)
+                            resolve(productID)
+                        });
+                }).then(productID => {
+                        new Promise(async resolve => {
+                            for (let i = 0; i < img.length; i++) {
+                                const insertIntoProductsImg = 'insert into productsimg (img, productID) VALUES (?,?)'
+                                await global.connectionMYSQL.execute(insertIntoProductsImg, [img[i].filename, productID],
+                                    function (err, results) {
+                                        if (err) {
+                                            console.error(err)
+                                            res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
+                                        }
+                                        console.log(results)
+                                    });
+                            }
+                            resolve({code: 200})
+                        })
+                    }
+                ).then(r => res.json(r))
             }
-
-
-        } catch (e) {
+        } catch
+            (e) {
             res.status(500).json({error: 'Упс, что то пошло не так... kek ergergerger'})
         }
     }
@@ -153,7 +182,7 @@ router.get(
     async (req, res) => {
         try {
             const id = req.params.id
-            const sql = "select img from productsimg where productID = ?"
+            const sql = "select img, ID from productsimg where productID = ?"
             await global.connectionMYSQL.execute(sql, [id],
                 function (err, results) {
                     if (err) {
@@ -172,9 +201,31 @@ router.get(
         }
     })
 
+router.delete(
+    '/imgs/delete/:id',
+    async (req, res) => {
+        try {
+            const id = req.params.id
+            const sql = "delete from productsimg where ID = ?"
+            await global.connectionMYSQL.execute(sql, [id],
+                function (err, results) {
+                    if (err) {
+                        console.error(err)
+                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
+                    }
+                    if (!results) {
+                        return res.status(400).json({error: 'Товар не найден'})
+                    }
+                    res.json(results)
+                });
+        } catch (e) {
+            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+        }
+    })
+
 router.get(
     '/reviews/:id',
-    async (req, res) => {
+    async (req, res ) => {
         try {
             const id = req.params.id
             //(select AVG(rating) AS AvgRating from reviews where reviews.productID =products.ID)
