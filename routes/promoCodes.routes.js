@@ -9,8 +9,6 @@ router.post(
     async (req, res) => {
         try {
             const {secret, sale} = req.body;
-            console.log('create Promocode')
-
             const insertPromo = ' INSERT INTO promocodes (secret, sale) VALUES (?, ?)'
 
             await global.connectionMYSQL.execute(insertPromo, [secret, sale],
@@ -24,7 +22,7 @@ router.post(
                 }
             )
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     }
 )
@@ -48,7 +46,7 @@ router.get(
                 }
             )
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     }
 )
@@ -62,21 +60,20 @@ router.get(
 
             const promoID = req.params.ID
             const deletePromo = ' delete from promocodes where ID = ? '
-            console.log(promoID + ' ID')
+
             await global.connectionMYSQL.execute(deletePromo, [promoID],
                 async function (err, results) {
                     if (err) {
                         console.error(err)
                         res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                     }
-                    console.log(results)
                     if (results.affectedRows > 0)
                         res.json({code: 200})
 
                 }
             )
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так... '})
         }
     }
 )

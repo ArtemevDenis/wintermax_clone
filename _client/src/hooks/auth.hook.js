@@ -15,8 +15,6 @@ export const useAuth = () => {
         setUserID(id);
         setRole(userRole);
         setEmail(email)
-        console.log(userRole);
-        console.log(JSON.stringify({userRole: userRole, userID: id, token: jwtToken}))
         localStorage.setItem(storageName, JSON.stringify({
             userRole: userRole,
             userID: id,

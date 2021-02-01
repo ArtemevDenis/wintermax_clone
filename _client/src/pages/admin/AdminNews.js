@@ -19,21 +19,10 @@ function AdminNews() {
     const createNews = async (e) => {
         e.preventDefault()
         if (form.title.trim() !== '' && form.description.trim() !== '')
-            new Promise(async (resolve, reject) => {
-                    try {
-                        const data = await request(`/api/news/create/`, 'POST', {...form},
-                            {
-                                Authorization: `Bearer ${user.token}`
-                            })
-                        if (data.code === 200) {
-                            resolve(data)
-                        }
-                    } catch (e) {
-                        console.error(e)
-                    }
-                }
-            ).then(r => {
-                    console.log(r)
+            request(`/api/news/create/`, 'POST', {...form},
+                {
+                    Authorization: `Bearer ${user.token}`
+                }).then(() => {
                     getAllNews();
                     setForm({
                         title: '', description: ''
@@ -42,48 +31,21 @@ function AdminNews() {
             )
     }
 
-
     const getAllNews = () => {
-        new Promise(async (resolve, reject) => {
-                try {
-                    const data = await request(`/api/news/all`, 'GET', null,
-                        {
-                            Authorization: `Bearer ${user.token}`
-                        })
-                    console.log(data)
-                    resolve(data)
-                } catch (e) {
-                    console.error(e)
-                }
-            }
-        ).then(r => {
+        request(`/api/news/all`, 'GET', null,
+            {
+                Authorization: `Bearer ${user.token}`
+            }).then(r => {
                 setNews(r)
             }
         )
     }
 
-
     const deleteNews = (newsID) => {
-        new Promise(async (resolve, reject) => {
-                try {
-                    const data = await request(`/api/news/delete/${newsID}`, 'GET', null,
-                        {
-                            Authorization: `Bearer ${user.token}`
-                        })
-                    if (data.code === 200)
-                        resolve()
-                    else
-                        reject('что то пошло не так')
-                } catch (e) {
-                    console.error(e)
-                }
-            }
-        ).then(r => {
-                getAllNews()
-            }
-        ).catch(
-            console.log
-        )
+        request(`/api/news/delete/${newsID}`, 'GET', null,
+            {
+                Authorization: `Bearer ${user.token}`
+            }).then(getAllNews)
     }
 
     useEffect(() => {
@@ -119,7 +81,6 @@ function AdminNews() {
                             onChange={changeHandler}
                         />
                     </label>
-
                 </div>
                 <button
                     className='button-primary'

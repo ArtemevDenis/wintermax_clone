@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useRef, useState} from "react";
 import CartList from "../components/cart/CartList";
 import {UserContext} from "../context/AuthContext";
 import {useHttp} from "../hooks/http.hook";
-import  {useHistory, Redirect} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
 
 function Cart() {
 
@@ -21,37 +21,31 @@ function Cart() {
 
     const submitHandler = async () => {
         if (cartID !== -1 && user.userID && address.current.value !== '' && date !== '') {
-            console.log('не все данные')
+
             const sendData = {
                 userID: user.userID,
                 addressDelivery: address.current.value,
                 dateDelivery: date,
                 cartID: cartID
             }
-            const data = await request('/api/orders/', 'POST', sendData,
+            request('/api/orders/', 'POST', sendData,
                 {
                     Authorization: `Bearer ${user.token}`
-                })
-            if (data.code === 200) {
-                await getCart();
+                }).then(() => {
+                getCart();
                 history.push('/profile')
-            }
+            })
         }
-        console.log('wefwefwefwef')
     }
 
 
-    const getCart = async () => {
-        try {
-            setProductList(null)
-            new Promise(async resolve => {
-                const data = await request('/api/cart/', 'POST', {userID: user.userID},
-                    {
-                        Authorization: `Bearer ${user.token}`
-                    })
-                resolve(data)
-            }).then(data => {
-                console.log(data.list)
+    const getCart = () => {
+        setProductList(null)
+        request('/api/cart/', 'POST', {userID: user.userID},
+            {
+                Authorization: `Bearer ${user.token}`
+            })
+            .then(data => {
                 setProductList(data.list)
                 setTotalPrice(data.totalPrice)
                 setSale(data.sale)
@@ -60,32 +54,26 @@ function Cart() {
                 user.setCartSize(data.list.length)
             })
 
-
-        } catch (e) {
-        }
     }
 
-    const deleteItemFromProductList = async (productID) => {
-        await request('/api/cart/removeitem', 'DELETE', {cartID: cartID, productID},
+    const deleteItemFromProductList = (productID) => {
+        request('/api/cart/removeitem', 'DELETE', {cartID: cartID, productID},
             {
                 Authorization: `Bearer ${user.token}`
-            })
-        getCart();
+            }).then(getCart)
     }
 
 
     const promoCodeHandler = (e) => {
         e.preventDefault()
-        console.log("promoCodeHandler")
         sendPromoCode()
     }
 
-    const sendPromoCode = async () => {
-        console.log("sendPromoCode")
-        await request('/api/cart/promo', 'POST', {cartID: cartID, promoCode: promoCode},
+    const sendPromoCode = () => {
+        request('/api/cart/promo', 'POST', {cartID: cartID, promoCode: promoCode},
             {
                 Authorization: `Bearer ${user.token}`
-            }).then(getCart())
+            }).then(getCart)
     }
 
 

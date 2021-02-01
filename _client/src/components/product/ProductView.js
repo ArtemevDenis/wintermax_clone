@@ -1,44 +1,39 @@
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 import {NavLink, useHistory} from "react-router-dom";
 import ImageSlider from "../slider/ImageSlider";
 import Review from "./Review";
 import Rating from "../rating/Rating";
 import {useHttp} from "../../hooks/http.hook";
 import {UserContext} from "../../context/AuthContext";
-import {useCart} from "../../hooks/cart.hook";
 
 const ProductView = ({product, imgSet, reviews}) => {
     let history = useHistory();
-    const [redirect, setRedirect] = useState(false);
-    const {request, error, clearError} = useHttp()
+    const {request} = useHttp()
     const user = useContext(UserContext)
 
-    const buyHandler = async () => {
+    const buyHandler = () => {
         if (!user.token)
             history.push('/login')
 
-        const res = await request(`/api/cart/add`, 'POST', {productID: product.ID, userID: user.userID},
+        request(`/api/cart/add`, 'POST', {productID: product.ID, userID: user.userID},
             {
                 Authorization: `Bearer ${user.token}`
-            });
-        console.log(res.size)
-        user.setCartSize(res.size)
-        if (!res.message) {
-            alert("Произошла ошибка при добавлении товара")
-        } else if (redirect) {
-            setRedirect(false)
-            history.push('/cart')
-        }
+            }).then(r => user.setCartSize(r.size))
+
 
     }
-
     const buyAndCartHandler = () => {
-        setRedirect(true)
-        buyHandler();
+        if (!user.token)
+            history.push('/login')
+        request(`/api/cart/add`, 'POST', {productID: product.ID, userID: user.userID},
+            {
+                Authorization: `Bearer ${user.token}`
+            }).then(r => {
+            user.setCartSize(r.size);
+            history.push('/cart');
+        })
     }
 
-
-    //TODO сделать обработчики кнопок + доделать рейтинг
     return (
         <div className='product'>
             <NavLink className='back-link' to='/catalog'>В каталог</NavLink>

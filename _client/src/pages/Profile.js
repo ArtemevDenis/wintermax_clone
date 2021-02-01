@@ -5,30 +5,25 @@ import {UserContext} from "../context/AuthContext";
 
 function Profile() {
     const [isSubscribe, setIsSubscribe] = useState();
-    const {loading, error, request, clearError} = useHttp()
+    const {request} = useHttp()
     const [orders, setOrders] = useState(null)
     const user = useContext(UserContext)
 
 
-    const getStatusIsSubscribe = async () => {
-        try {
-            const data = await request('/api/userData/', 'POST', {userID: user.userID},
-                {
-                    Authorization: `Bearer ${user.token}`
-                })
-            await console.log(data)
-            await setIsSubscribe(data.isSubscribe)
-            await console.log('isSubscribe:' + isSubscribe)
-        } catch (e) {
-            console.error(e)
-        }
-    }
-
-    const sendIsSubscribe = async (isSub) => {
-        await request('/api/userData/setSubscribe/', 'PATCH', {userID: user.userID, isSubscribe: isSub},
+    const getStatusIsSubscribe = () => {
+        request('/api/userData/', 'POST', {userID: user.userID},
             {
                 Authorization: `Bearer ${user.token}`
-            }).then(setIsSubscribe(isSub))
+            }).then(data => setIsSubscribe(data.isSubscribe))
+
+    }
+
+    const sendIsSubscribe = (isSub) => {
+        request('/api/userData/setSubscribe/', 'PATCH', {userID: user.userID, isSubscribe: isSub},
+            {
+                Authorization: `Bearer ${user.token}`
+            })
+            .then(setIsSubscribe(isSub))
     }
 
     const setStatusInSubscribe = async () => {
@@ -39,23 +34,15 @@ function Profile() {
         } catch (e) {
             console.error(e)
         }
-
     }
 
 
     const getOrders = () => {
-        new Promise(async (resolve, reject) => {
-            console.log(12)
-            const data = await request(`/api/orders/${user.userID}/`, 'GET', null,
-                {
-                    Authorization: `Bearer ${user.token}`
-                })
-            resolve(data.results);
-            console.log(data)
-        }).then((r) => {
-            console.log(r)
-            setOrders(r)
-        })
+        request(`/api/orders/${user.userID}/`, 'GET', null,
+            {
+                Authorization: `Bearer ${user.token}`
+            })
+            .then((r) => setOrders(r.results))
     }
 
 
@@ -80,7 +67,6 @@ function Profile() {
                 {orders && <h2 className='profile__title'>Ваши заказы:</h2>
                 }
             </div>
-            {loading && 'заказ загружается'}
             {orders &&
             <div className='profile__orders'>
                 {orders.map((order) => {

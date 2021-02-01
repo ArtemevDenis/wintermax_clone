@@ -4,7 +4,6 @@ const router = Router()
 
 const multer = require('multer');
 
-// var upload = multer({ dest: './public/' })
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -24,8 +23,6 @@ router.post(
         try {
             const {title, description, cost, productID, type} = req.body
             const img = req.files;
-            console.log('title')
-            console.log(title)
 
 
             if (productID === 'create') {
@@ -38,7 +35,6 @@ router.post(
                                 console.error(err)
                                 res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                             }
-                            console.log(results)
                             resolve(results.insertId)
                         });
                 }).then(productID => {
@@ -51,7 +47,6 @@ router.post(
                                             console.error(err)
                                             res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                                         }
-                                        console.log(results)
                                     });
                             }
                             resolve({code: 200})
@@ -68,7 +63,6 @@ router.post(
                                 console.error(err)
                                 res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                             }
-                            console.log(results)
                             resolve(productID)
                         });
                 }).then(productID => {
@@ -81,7 +75,6 @@ router.post(
                                             console.error(err)
                                             res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                                         }
-                                        console.log(results)
                                     });
                             }
                             resolve({code: 200})
@@ -91,7 +84,7 @@ router.post(
             }
         } catch
             (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek ergergerger'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     }
 )
@@ -115,7 +108,7 @@ router.get(
 
 
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     })
 
@@ -124,9 +117,7 @@ router.delete(
     '/:id',
     async (req, res) => {
         try {
-            console.log('delete ')
             const id = req.params.id
-            console.log(id)
             const sql = "delete from products where ID = ?"
             await global.connectionMYSQL.execute(sql, [id],
                 function (err, results) {
@@ -134,7 +125,6 @@ router.delete(
                         console.error(err)
                         res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                     }
-                    console.log(results)
                     let product = results[0]
                     if (!product) {
                         return res.status(400).json({error: 'Товар не найден'})
@@ -144,7 +134,7 @@ router.delete(
 
 
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     })
 
@@ -173,7 +163,7 @@ router.post(
 
 
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     })
 
@@ -197,7 +187,7 @@ router.get(
 
 
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     })
 
@@ -219,7 +209,7 @@ router.delete(
                     res.json(results)
                 });
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     })
 
@@ -244,7 +234,7 @@ router.get(
 
 
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     })
 
@@ -269,7 +259,7 @@ router.get(
 
 
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     })
 
@@ -309,7 +299,7 @@ router.post(
                     res.json(products)
                 });
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     })
 
@@ -333,7 +323,7 @@ router.get(
 
 
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     })
 

@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Switch, Route, Redirect} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 
 import Main from "../pages/Main";
 import Catalog from "../pages/Catalog";
@@ -90,7 +90,6 @@ export const useRoutes = () => {
     return (
         <Switch>
             {defaultRouters}
-            <Redirect to={"/"}/>
         </Switch>
 
     )

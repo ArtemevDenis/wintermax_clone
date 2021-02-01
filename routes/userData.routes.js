@@ -32,8 +32,7 @@ router.get("/:id", adminMiddleware, async (req, res) => {
 
 router.post("/", authMiddleware, async (req, res) => {
     try {
-        const {userID} = req.body
-        console.log(req.body)
+        const {userID} = req.body;
         if (userID) {
             const sql = "select isSubscribe from usersSubscribe where userID = ?";
 
@@ -48,8 +47,7 @@ router.post("/", authMiddleware, async (req, res) => {
                     if (!isSubscribe) {
                         return res.status(400).json({error: 'Пользователь не найден'})
                     }
-                    // console.log("isSubscribe:" + JSON.parse(isSubscribe));
-                    console.log(isSubscribe)
+
                     res.json(isSubscribe)
                 });
         } else
@@ -63,19 +61,14 @@ router.post("/", authMiddleware, async (req, res) => {
 router.patch("/setSubscribe", async (req, res) => {
     try {
         const {userID, isSubscribe} = req.body
-        console.log(req.body)
-        console.log('new isSubscribe: ' + isSubscribe)
         if (userID) {
             const sql = "update usersSubscribe set  isSubscribe = ? where userID = ?";
-
-
             await global.connectionMYSQL.execute(sql, [isSubscribe, userID],
                 function (err, results) {
                     if (err) {
                         console.error(err)
                         res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                     }
-                    console.log(results.affectedRows === 0)
                     if (results.affectedRows === 0) {
                         return res.status(400).json({error: 'Пользователь не найден'})
                     }

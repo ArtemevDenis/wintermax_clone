@@ -1,10 +1,7 @@
 const jwt = require('jsonwebtoken')
 const config = require('config')
 
-
-
 module.exports = async (req, res, next) => {
-
     if (req.method === "OPTIONS") {
         return next();
     }
@@ -16,23 +13,13 @@ module.exports = async (req, res, next) => {
         }
 
         req.user = jwt.verify(token, config.get('jwtSecret'))
-        console.log(req.user)
-        //
-        // let user = await User.findById(req.user.userID)
-        //
-        // if (!user) {
-        //     console.log('ups')
-        // }
-        // console.log(user)
 
         let role =  req.user.userRole;
         if (role === 'admin')
             next()
         else
             res.status(403).json({message: "Недостаточно прав"})
-
     } catch (e) {
-
         res.status(401).json({message: "Нет авторизации"})
     }
 }

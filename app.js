@@ -4,8 +4,6 @@ const mysql = require("mysql2");
 const config = require('config');
 const bodyParser = require("body-parser");
 
-
-
 const app = express();
 
 app.use('/images', express.static('public'))

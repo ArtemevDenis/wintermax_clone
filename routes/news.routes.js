@@ -8,7 +8,7 @@ router.get(
     async (req, res) => {
         try {
 
-            const getAllNews = 'select * from news'
+            const getAllNews = 'select * from news';
 
             await global.connectionMYSQL.execute(getAllNews, [],
                 async function (err, results) {
@@ -16,14 +16,12 @@ router.get(
                         console.error(err)
                         res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                     }
-                    console.log(' results')
-                    console.log(results)
                     res.json(results)
 
                 }
             )
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     }
 )
@@ -32,7 +30,6 @@ router.get(
     '/:id',
     async (req, res) => {
         try {
-            console.log(req.params.id)
             const id = req.params.id
             await global.connectionMYSQL.execute("SELECT * FROM news where ID=?", [id],
                 function (err, results) {
@@ -50,7 +47,7 @@ router.get(
 
 
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     })
 
@@ -59,7 +56,6 @@ router.get(
     async (req, res) => {
 
         try {
-            const start = new Date().getTime();
             const count = req.params.count
             await global.connectionMYSQL.execute("SELECT * FROM news ORDER BY ID DESC LIMIT ?", [count],
                 function (err, results) {
@@ -71,11 +67,9 @@ router.get(
 
                     res.json(news)
                 });
-            const end = new Date().getTime();
-            console.log(`SecondWay: ${end - start}ms`);
 
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
 
     })
@@ -87,22 +81,19 @@ router.post(
         try {
             const {title, description} = req.body;
             const date = new Date().toISOString().slice(0, 10).replace('T', ' ');
-
             const insertNews = ' INSERT INTO news (title, date, text) VALUES (?, ?, ?)'
-
             await global.connectionMYSQL.execute(insertNews, [title, date, description],
                 async function (err, results) {
                     if (err) {
                         console.error(err)
                         res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                     }
-
                     if (results.affectedRows === 1)
                         res.json({code: 200})
                 }
             )
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     }
 )
@@ -112,23 +103,20 @@ router.get(
     adminMiddleware,
     async (req, res) => {
         try {
-
             const newsID = req.params.ID
-            const deleteNews = ' delete from news where ID = ? '
+            const deleteNews = ' delete from news where ID = ?'
             await global.connectionMYSQL.execute(deleteNews, [newsID],
                 async function (err, results) {
                     if (err) {
                         console.error(err)
                         res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                     }
-                    console.log(results)
                     if (results.affectedRows > 0)
                         res.json({code: 200})
-
                 }
             )
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     }
 )

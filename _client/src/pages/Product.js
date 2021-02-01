@@ -6,34 +6,22 @@ import ProductView from "../components/product/ProductView";
 
 function Product() {
     const productID = useParams().id
-    const {request, loading, error} = useHttp()
+    const {request, loading} = useHttp()
     const [product, setProduct] = useState()
     const [productImgs, setProductImgs] = useState()
     const [reviews, setReviews] = useState()
 
     const getProduct = async () => {
-        try {
-            const product = await request(`/api/products/${productID}`, 'GET');
-            const imgs = await request(`/api/products/imgs/${productID}`, 'GET');
-            const reviews = await request(`/api/products/reviews/${productID}`, 'GET');
-            await setProduct(product);
-            await setProductImgs(imgs);
-            await setReviews(reviews);
-            console.log(reviews)
-            console.log(imgs)
-        } catch (e) {
-            console.log(e)
-        }
+        request(`/api/products/${productID}`, 'GET').then(setProduct)
+        request(`/api/products/imgs/${productID}`, 'GET').then(setProductImgs)
+        request(`/api/products/reviews/${productID}`, 'GET').then(setReviews)
     }
+
 
     useEffect(() => {
         getProduct()
     }, [])
 
-    // TODO доделать вывод ошибок + дописать api сервера
-    // if (error) {
-    //     return <>что то пошло не так...</>
-    // }
     if (loading) {
         return <Loader/>
     }

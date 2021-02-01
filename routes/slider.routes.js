@@ -1,13 +1,8 @@
 const {Router} = require('express')
-const jwt = require('jsonwebtoken')
-const config = require('config')
 
-const adminMiddleware = require('../middleware/adminAuth.middleware')
 const router = Router()
 
 const multer = require('multer');
-
-// var upload = multer({ dest: './public/' })
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -28,7 +23,6 @@ router.get('/', async function (req, res) {
                 if (err) {
                     reject(err)
                 }
-                console.log(results)
                 if (results.length > 0)
                     resolve({code: results})
             }
@@ -69,7 +63,6 @@ router.post('/upload', upload.single('imgSlider'), async function (req, res) {
                 if (err) {
                     reject(err)
                 }
-                console.log(results)
                 if (results.affectedRows > 0)
                     resolve({code: 200 })
             }

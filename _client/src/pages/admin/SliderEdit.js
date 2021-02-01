@@ -18,55 +18,31 @@ function SliderEdit() {
                 const formData = new FormData()
                 formData.append('imgSlider', img.current.files[0], img.current.files[0].name)
                 formData.append('link', link.current.value)
-                console.log(formData)
-                // console.log(dataObj)
-                //  request('/api/slider/', 'POST', formData)
                 await fetch('/api/slider/upload', {
                     mode: 'no-cors',
                     method: 'POST',
                     body: formData
                 })
                 resolve('ok')
-            }).then(getSliders)
+            })
+                .then(getSliders)
 
     }
 
     const getSliders = () => {
-        new Promise(async (resolve, reject) => {
-                try {
-                    const data = await request(`/api/slider`, 'GET', null,
-                        {
-                            Authorization: `Bearer ${user.token}`
-                        })
-                    console.log(data.code)
-                    resolve(data.code)
-                } catch (e) {
-                    console.error(e)
-                }
-            }
-        ).then(r => {
-                setSliders(r)
-            }
-        )
+        request(`/api/slider`, 'GET', null,
+            {
+                Authorization: `Bearer ${user.token}`
+            })
+            .then(r => setSliders(r.code))
     }
 
     const deleteHandler = (promoID) => {
-        new Promise(async (resolve, reject) => {
-                try {
-                    const data = await request(`/api/slider/${promoID}`, 'DELETE', null,
-                        {
-                            Authorization: `Bearer ${user.token}`
-                        })
-                    console.log(data)
-                    resolve('ok')
-
-                } catch (e) {
-                    console.error(e)
-                }
-            }
-        ).then(getSliders).catch(
-            console.log
-        )
+        request(`/api/slider/${promoID}`, 'DELETE', null,
+            {
+                Authorization: `Bearer ${user.token}`
+            })
+            .then(getSliders)
     }
 
 

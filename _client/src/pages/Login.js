@@ -8,7 +8,6 @@ function Login() {
     let history = useHistory();
     const user = useContext(UserContext)
     const {loading, error, request, clearError} = useHttp()
-    const [finishLoad, setFinishLoad] = useState(false)
 
     const [form, setForm] = useState({
         email: '', password: ''
@@ -24,26 +23,16 @@ function Login() {
 
     const loginHandler = async () => {
         try {
-            await request('/api/auth/login', 'POST', {...form})
+            request('/api/auth/login', 'POST', {...form})
                 .then((data) => {
                     user.login(data.token, data.userID, data.role, data.email)
                 })
-                .then(loadCartSize())
-
-
-            history.push('/profile')
+            history.push('/home')
         } catch (e) {
             console.error(e)
         }
     }
 
-    const loadCartSize = async () => {
-        const cartSize = await request('/api/cart/size', 'POST', {userID: user.userID}, {
-            Authorization: `Bearer ${user.token}`
-        })
-        user.setCartSize(cartSize.size);
-        console.log('cartSize.size: ' + cartSize.size)
-    }
 
     return (
         <div>

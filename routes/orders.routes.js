@@ -1,6 +1,4 @@
 const {Router} = require('express')
-const jwt = require('jsonwebtoken')
-const config = require('config')
 
 const authMiddleware = require('../middleware/auth.middleware')
 const adminMiddleware = require('../middleware/adminAuth.middleware')
@@ -57,7 +55,7 @@ router.post(
                 }
             )
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     }
 )
@@ -82,13 +80,12 @@ router.post(
                 }
             )
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     }
 )
 
 
-//TODO adminMiddleware
 router.get(
     '/all',
     adminMiddleware,
@@ -108,7 +105,7 @@ router.get(
 
 
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     }
 )
@@ -134,7 +131,7 @@ router.get(
 
 
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     }
 )

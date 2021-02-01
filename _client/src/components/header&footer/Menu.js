@@ -1,8 +1,7 @@
 import {UserMenuData} from "../../data/UserMenuData";
 import {NavLink, useHistory} from "react-router-dom";
-import React, {useContext, useEffect} from "react";
+import React, {useContext} from "react";
 import {UserContext} from "../../context/AuthContext";
-import {useCart} from "../../hooks/cart.hook";
 
 const Menu = ({listOrientation}) => {
     const history = useHistory()
@@ -21,7 +20,7 @@ const Menu = ({listOrientation}) => {
                 {UserMenuData.map((item, index) => {
                     if (item.title === 'Профиль' && !isAuth)
                         return <></>
-                    return <li className={`nav__item nav__item--${listOrientation}`} key={index}><NavLink
+                    return <li className={`nav__item nav__item--${listOrientation}`} key={index + item.path}><NavLink
                         to={item.path}>{item.title}</NavLink></li>
                 })}
                 <li className={`nav__item nav__item--${listOrientation}`}><NavLink

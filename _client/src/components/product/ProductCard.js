@@ -4,7 +4,6 @@ import Rating from "../rating/Rating";
 
 const ProductCard = ({product}) => {
     const reviewTitle = () => {
-        console.log(product.CountReviews)
         if (product.CountReviews === 0)
             return 'нет отзывов'
         if (product.CountReviews === 1)

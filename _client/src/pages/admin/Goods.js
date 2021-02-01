@@ -16,34 +16,19 @@ function Goods() {
 
 
     const getAllProducts = () => {
-        const filter = {
-            types: [],
-            minPrice: 0,
-            maxPrice: Number.MAX_VALUE
-        }
-        new Promise(async resolve => {
-            const data = await request('/api/products/all', 'GET', null,
-                {
-                    Authorization: `Bearer ${user.token}`
-                })
-            console.log(data)
-            if (data)
-                resolve(data)
-        }).then(r => setAllProducts(r))
+        request('/api/products/all', 'GET', null,
+            {
+                Authorization: `Bearer ${user.token}`
+            })
+            .then(setAllProducts)
     }
 
     const deleteHandler = (productID) => {
-        new Promise(async resolve => {
-            const data = await request(`/api/products/${productID}`, 'DELETE', null,
-                {
-                    Authorization: `Bearer ${user.token}`
-                })
-            console.log(data)
-            if (data)
-                resolve(data)
-        }).then(r => {
-            getAllProducts()
-        })
+        request(`/api/products/${productID}`, 'DELETE', null,
+            {
+                Authorization: `Bearer ${user.token}`
+            })
+            .then(getAllProducts)
     }
 
     return (
@@ -53,7 +38,6 @@ function Goods() {
                     className='button-primary'
                     to='/admin/goods/create'>Создать товар</NavLink>
             </div>
-
             {allProducts && allProducts.map((product, index) =>
                 <AdminProductItem product={product} index={index + 1} deleteHandler={deleteHandler}/>)}
         </div>

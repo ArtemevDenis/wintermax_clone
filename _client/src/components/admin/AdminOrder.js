@@ -7,36 +7,23 @@ const AdminOrder = ({order, updateStatus}) => {
 
     const [productsListData, setProductsListData] = useState(null)
 
-    const {loading, error, request, clearError} = useHttp()
+    const {request} = useHttp()
     const [userData, setUserData] = useState(null)
 
     const user = useContext(UserContext)
 
-
     const loadProductsListData = () => {
-        new Promise(async (resolve, reject) => {
-            const data = await request('/api/products/list', "POST", {productsList: order.productsList},
-                {
-                    Authorization: `Bearer ${user.token}`
-                })
-            console.log(data)
-            if (data)
-                resolve(data)
-        }).then(r =>
-            setProductsListData(r)
-        )
+        request('/api/products/list', "POST", {productsList: order.productsList},
+            {
+                Authorization: `Bearer ${user.token}`
+            }).then(r => setProductsListData(r))
     }
 
     const loadUser = () => {
-        new Promise(async (resolve, reject) => {
-            const data = await request(`/api/userData/${order.ownerID}`, "GET", null,
-                {
-                    Authorization: `Bearer ${user.token}`
-                })
-            console.log(data)
-            if (data)
-                resolve(data)
-        }).then(r => setUserData(r))
+        request(`/api/userData/${order.ownerID}`, "GET", null,
+            {
+                Authorization: `Bearer ${user.token}`
+            }).then(r => setUserData(r))
     }
 
     useEffect(() => {
@@ -80,7 +67,6 @@ const AdminOrder = ({order, updateStatus}) => {
                     className='button-primary'
                     onClick={(e) => {
                         e.preventDefault()
-                        console.log('click')
                         updateStatus({orderID: order.ID, status: localStatus})
                     }}>Обновить
                 </button>

@@ -1,8 +1,5 @@
 const {Router} = require('express')
-const jwt = require('jsonwebtoken')
-const config = require('config')
 
-const adminMiddleware = require('../middleware/adminAuth.middleware')
 const AuthMiddleware = require('../middleware/auth.middleware')
 const router = Router()
 
@@ -16,7 +13,6 @@ router.get('/', async function (req, res) {
                 if (err) {
                     reject(err)
                 }
-                console.log(results)
                 if (results.length > 0)
                     resolve({code: results})
             }
@@ -29,8 +25,6 @@ router.get('/', async function (req, res) {
 router.post('/', AuthMiddleware, async function (req, res) {
     const {productID, authorID, text, rating} = req.body
     const date = new Date().toISOString().slice(0, 10).replace('T', ' ');
-
-
     const insertReviews = 'insert into reviews (productID, authorID, text, date, rating) VALUE (?,?,?,?,?)'
     new Promise((resolve, reject) => {
         global.connectionMYSQL.execute(insertReviews, [productID, authorID, text, date, rating],
@@ -38,7 +32,6 @@ router.post('/', AuthMiddleware, async function (req, res) {
                 if (err) {
                     reject(err)
                 }
-                console.log(results)
                 if (results.affectedRows > 0)
                     resolve({code: 200})
             }

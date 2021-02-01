@@ -7,7 +7,7 @@ export const UserContext = createContext({
     login: noop,
     logout: noop,
     isAuth: null,
-    isAdmin: true,
+    isAdmin: false,
     email: null,
     cartSize: 0,
     setCartSize: noop

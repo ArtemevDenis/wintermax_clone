@@ -40,36 +40,25 @@ function AdminProduct() {
 
     const loadData = () => {
         if (productID !== 'create')
-            new Promise(async (resolve, reject) => {
-                const data = await request(`/api/products/${productID}`, "GET", null,
-                    {
-                        Authorization: `Bearer ${user.token}`
-                    })
-                console.log(data)
-                if (data)
-                    resolve(data)
-            }).then(r => {
-                    title.current.value = r.title;
-                    cost.current.value = r.cost;
-                    description.current.value = r.description;
-                    type.current.value = r.type;
-                    loadImg()
-                }
-            )
-    }
-    const loadImg = () => {
-        new Promise(async (resolve, reject) => {
-            const data = await request(`/api/products/imgs/${productID}`, "GET", null,
+            request(`/api/products/${productID}`, "GET", null,
                 {
                     Authorization: `Bearer ${user.token}`
                 })
-            console.log(data)
-            if (data)
-                resolve(data)
-        }).then(r => {
-                setImgs(r)
-            }
-        )
+                .then(r => {
+                        title.current.value = r.title;
+                        cost.current.value = r.cost;
+                        description.current.value = r.description;
+                        type.current.value = r.type;
+                        loadImg()
+                    }
+                )
+    }
+    const loadImg = () => {
+        request(`/api/products/imgs/${productID}`, "GET", null,
+            {
+                Authorization: `Bearer ${user.token}`
+            })
+            .then(setImgs)
     }
 
     useEffect(() => {
@@ -79,18 +68,11 @@ function AdminProduct() {
 
 
     const deleteImgHandler = (imgID) => {
-        new Promise(async (resolve, reject) => {
-            const data = await request(`/api/products/imgs/delete/${imgID}`, "DELETE", null,
-                {
-                    Authorization: `Bearer ${user.token}`
-                })
-            console.log(data)
-            if (data)
-                resolve(data)
-        }).then(() => {
-                loadImg()
-            }
-        )
+        request(`/api/products/imgs/delete/${imgID}`, "DELETE", null,
+            {
+                Authorization: `Bearer ${user.token}`
+            })
+            .then(loadImg)
     }
 
     return (

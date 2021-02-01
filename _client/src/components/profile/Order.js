@@ -4,18 +4,13 @@ import {useHttp} from "../../hooks/http.hook";
 import SetReview from "./SetReview";
 
 const Order = ({order}) => {
-    const {loading, error, request, clearError} = useHttp()
+    const {request} = useHttp()
     const [productsListData, setProductsListData] = useState(null)
 
 
     const loadProductsListData = () => {
-        new Promise(async (resolve, reject) => {
-            const data = await request('/api/products/list', "POST", {productsList: order.productsList})
-            console.log(data)
-            if (data)
-                resolve(data)
-        }).then(r =>
-            setProductsListData(r)
+        request('/api/products/list', "POST", {productsList: order.productsList}).then(
+            setProductsListData
         )
     }
 
@@ -34,10 +29,10 @@ const Order = ({order}) => {
             <div className='row'>
                 <div><h3 className='order__title'>Содержание заказа:</h3>
                     {productsListData && <ul className='order_text'>{productsListData.map((product, index) =>
-                        <li>{index+1}. {product.title}</li>)}</ul>}
+                        <li key={index}>{index + 1}. {product.title}</li>)}</ul>}
                     <p><span className='order__title'>Адрес: </span>
-                        <spam className='order__text'>
-                            {order.addressDelivery}</spam>
+                        <span className='order__text'>
+                            {order.addressDelivery}</span>
                     </p>
                     <p><span className='order__title'>Дата: </span>
                         <span className='order__text'>

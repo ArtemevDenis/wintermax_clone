@@ -2,15 +2,14 @@ const {Router} = require('express')
 const authMiddleware = require('../middleware/auth.middleware')
 
 const router = Router()
-//TODO подержка пустой корзины и удаление всех товаров
+
+
 router.post(
     '/add',
     authMiddleware,
     async (req, res) => {
         try {
             const {userID, productID} = req.body;
-            // //let sql = "select products.*, (select AVG(rating) AS AvgRating from reviews where reviews.productID =products.ID) AS AvgRating,   (select COUNT(rating) AS CountRating from reviews where reviews.productID =products.ID) AS CountReviews,  productsImg.img  from products inner JOIN productsImg  where productsImg.productID = products.ID   && cost >= ? && cost < ? && type IN (" + typesReq + ") group by products.ID"
-            console.log(req.body)
             let sql = 'select * from carts where ownerID = ? && isDelete = 0'
             await global.connectionMYSQL.execute(sql, [userID],
                 function (err, results) {
@@ -18,9 +17,7 @@ router.post(
                         console.error(err)
                         res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                     }
-                    let productsList = '';
                     if (results.length === 0) {
-                        console.log(productID)
                         const insert = 'insert into carts (ownerID, productsList) value(?,?)'
                         global.connectionMYSQL.execute(insert, [userID, productID],
                             function (err, results) {
@@ -53,7 +50,7 @@ router.post(
                     }
                 });
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     })
 
@@ -64,25 +61,27 @@ router.post(
     async (req, res) => {
         try {
             const {userID} = req.body;
-            let sql = 'select * from carts where ownerID = ? && isDelete = 0'
-            await global.connectionMYSQL.execute(sql, [userID],
-                function (err, results) {
-                    if (err) {
-                        console.error(err)
-                        res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
-                    }
-                    if (results.length === 0) {
-                        res.status(200).json({message: 'Ok', size: 0})
-                    } else {
-                        const newProductList = results[0].productsList;
-                        let cartSize = 0;
-                        if (newProductList !== '')
-                            cartSize = newProductList.split(",").length
-                        res.status(200).json({message: 'Ok add', size: cartSize})
-                    }
-                });
+            if (userID) {
+                let sql = 'select * from carts where ownerID = ? && isDelete = 0'
+                await global.connectionMYSQL.execute(sql, [userID],
+                    function (err, results) {
+                        if (err) {
+                            console.error(err)
+                            res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
+                        }
+                        if (results.length === 0) {
+                            res.status(200).json({message: 'Ok', size: 0})
+                        } else {
+                            const newProductList = results[0].productsList;
+                            let cartSize = 0;
+                            if (newProductList !== '')
+                                cartSize = newProductList.split(",").length
+                            res.status(200).json({message: 'Ok add', size: cartSize})
+                        }
+                    });
+            }
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     })
 
@@ -103,8 +102,6 @@ router.post(
                         console.error(err)
                         res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                     }
-                    console.log('results')
-                    console.log(results)
                     if (results.length === 0) {
                         res.status(200).json({
                             message: 'Корзина пустая',
@@ -115,9 +112,7 @@ router.post(
                             promoCode: "",
                         })
                     } else {
-                        let promo
-                        console.log('get cart by user id')
-                        console.log(results[0])
+                        let promo;
                         if (results[0].promoCode)
                             promo = results[0].promoCode;
                         else
@@ -205,7 +200,7 @@ router.post(
                 }
             );
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     })
 
@@ -215,7 +210,7 @@ router.post(
     async (req, res) => {
         try {
             const {cartID, promoCode} = req.body;
-            console.log("wintermax5: " + promoCode)
+
             const update = 'update carts set promoCode = ? where ID = ?'
             await global.connectionMYSQL.execute(update, [promoCode, cartID],
                 function (err, results) {
@@ -226,7 +221,7 @@ router.post(
                     res.status(200).json({message: 'Промокод применен'})
                 });
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     })
 
@@ -238,9 +233,6 @@ router.delete(
         try {
             const {cartID, productID} = req.body;
 
-            console.log("cartID: " + cartID);
-            console.log("productID: " + productID);
-
             const select = 'select * from carts where ID = ?'
             await global.connectionMYSQL.execute(select, [cartID],
                 async function (err, results) {
@@ -248,14 +240,9 @@ router.delete(
                         console.error(err)
                         res.status(500).json({error: 'Упс, что то пошло не так... соединение не установлено '})
                     }
-                    console.log(results[0])
                     const cart = results[0];
                     const oldList = cart.productsList.split(',');
-                    console.log('oldList: ');
-                    console.log(oldList);
                     const index = oldList.indexOf('' + productID);
-                    console.log("index: " + index);
-                    console.log("productID: " + productID);
                     if (index > -1) {
                         oldList.splice(index, 1);
                     }
@@ -274,7 +261,7 @@ router.delete(
                         })
                 });
         } catch (e) {
-            res.status(500).json({error: 'Упс, что то пошло не так... kek'})
+            res.status(500).json({error: 'Упс, что то пошло не так...'})
         }
     })
 

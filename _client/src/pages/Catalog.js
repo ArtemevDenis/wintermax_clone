@@ -5,7 +5,6 @@ import {useHttp} from "../hooks/http.hook";
 
 function Catalog() {
 
-    //TODO добавить загрузку товаров с сервера
     const [filter, setFilter] = useState(() => {
         const filter = JSON.parse(localStorage.getItem('filter'))
         if (filter)
@@ -17,12 +16,8 @@ function Catalog() {
     const {loading, error, request, clearError} = useHttp()
 
     const getData = async () => {
-        try {
-            const data = await request('/api/products/filter', 'POST', {filter})
-            await setProducts(data)
-        } catch (e) {
-            console.error(e)
-        }
+        request('/api/products/filter', 'POST', {filter})
+            .then(setProducts)
     }
 
 

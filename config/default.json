@@ -4,6 +4,6 @@
   "baseUrl": "http://localhost:5000",
   "host": "localhost",
   "user": "wintermax",
-  "database": "wintermax",
+  "database": "wintermax2",
   "password": "wintermax"
 }

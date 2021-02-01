@@ -2,7 +2,6 @@ import React from 'react'
 import Star from "./Star";
 
 const Rating = ({rating = 1, size = 19}) => {
-    //TODO доделать рейтинг для точного отображения рейтинга + добавить возможность выставлять оценку
     const starts = [1, 2, 3, 4, 5]
     return (
         <div className='rating' style={{width: size * 5 + 'px', height: size + 'px'}}>

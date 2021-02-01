@@ -14,49 +14,21 @@ function Orders() {
     }, [])
 
 
-    const updateStatus = async (object) => {
-        new Promise(async (resolve, reject) => {
-            await request(`/api/orders/update/`, 'POST', {ID: object.orderID, status: object.status},
-                {
-                    Authorization: `Bearer ${user.token}`
-                })
-            resolve()
-        }).then(getOrders())
+    const updateStatus = (object) => {
+        request(`/api/orders/update/`, 'POST', {ID: object.orderID, status: object.status},
+            {
+                Authorization: `Bearer ${user.token}`
+            })
+            .then(getOrders)
     }
 
 
-    // const getOrders = () => {
-    //     new Promise(async (resolve, reject) => {
-    //
-    //         const data = await request('/api/orders/all', 'GET', null,
-    //             {
-    //                 Authorization: `Bearer ${user.token}`
-    //             })
-    //         console.log('##########################################')
-    //         console.log(data)
-    //         console.log(data.results)
-    //         console.log('##########################################')
-    //
-    //         resolve(data.results)
-    //     }).then((r) => {
-    //             setOrders(r)
-    //         }
-    //     )
-    // }
-
     const getOrders = () => {
-        new Promise(async (resolve, reject) => {
-            console.log(12)
-            const data = await request(`/api/orders/all/`, 'GET', null,
-                {
-                    Authorization: `Bearer ${user.token}`
-                })
-            resolve(data.results);
-            console.log(data)
-        }).then((r) => {
-            console.log(r)
-            setOrders(r)
-        })
+        request(`/api/orders/all/`, 'GET', null,
+            {
+                Authorization: `Bearer ${user.token}`
+            })
+            .then(r => setOrders(r.results))
     }
 
     return (

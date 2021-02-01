@@ -9,18 +9,16 @@ const SetReview = ({productsData}) => {
     const text = useRef()
     const {request} = useHttp()
     const user = useContext(UserContext)
+
     const sendReview = () => {
-        new Promise(async (resolve, reject) => {
-            const data = await request('/api/reviews', "POST", {
-                productID,
-                rating,
-                authorID: user.userID,
-                text: text.current.value
-            }, {
-                Authorization: `Bearer ${user.token}`
-            })
-            resolve(data)
-        }).then(console.log)
+        request('/api/reviews', "POST", {
+            productID,
+            rating,
+            authorID: user.userID,
+            text: text.current.value
+        }, {
+            Authorization: `Bearer ${user.token}`
+        })
     }
 
 

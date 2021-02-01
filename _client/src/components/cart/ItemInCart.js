@@ -1,8 +1,6 @@
 import React from 'react'
 
 const ItemInCart = ({product, deleteItem, index}) => {
-
-
     return (
         <>
             <p className='cart__item'>{index}</p>

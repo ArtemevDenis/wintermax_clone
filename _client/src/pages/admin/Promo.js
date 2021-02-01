@@ -18,72 +18,37 @@ function Promo() {
         setForm({...form, [event.target.name]: event.target.value})
     }
 
-    const createPromo = async (e) => {
+    const createPromo = (e) => {
         e.preventDefault()
         if (form.secret.trim() !== '' && form.sale >= 0 && form.sale <= 100)
-            new Promise(async (resolve, reject) => {
-                    try {
-                        const data = await request(`/api/promo/create/`, 'POST', {...form},
-                            {
-                                Authorization: `Bearer ${user.token}`
-                            })
-                        if (data.code === 200) {
-                            resolve(data)
-                        }
-                    } catch (e) {
-                        console.error(e)
+            request(`/api/promo/create/`, 'POST', {...form},
+                {
+                    Authorization: `Bearer ${user.token}`
+                })
+                .then(() => {
+                        getPromoCodes();
+                        setForm({
+                            secret: '', sale: 0
+                        })
                     }
-                }
-            ).then(r => {
-                    console.log(r)
-                    getPromoCodes();
-                    setForm({
-                        secret: '', sale: 0
-                    })
-                }
-            )
+                )
     }
 
 
     const getPromoCodes = () => {
-        new Promise(async (resolve, reject) => {
-                try {
-                    const data = await request(`/api/promo/all`, 'GET', null,
-                        {
-                            Authorization: `Bearer ${user.token}`
-                        })
-                    resolve(data)
-                } catch (e) {
-                    console.error(e)
-                }
-            }
-        ).then(r => {
-                setPromos(r)
-            }
-        )
+        request(`/api/promo/all`, 'GET', null,
+            {
+                Authorization: `Bearer ${user.token}`
+            })
+            .then(setPromos)
     }
 
     const deletePromo = (promoID) => {
-        new Promise(async (resolve, reject) => {
-                try {
-                    const data = await request(`/api/promo/delete/${promoID}`, 'GET', null,
-                        {
-                            Authorization: `Bearer ${user.token}`
-                        })
-                    if (data.code === 200)
-                        resolve()
-                    else
-                        reject('что то пошло не так')
-                } catch (e) {
-                    console.error(e)
-                }
-            }
-        ).then(r => {
-                getPromoCodes()
-            }
-        ).catch(
-            console.log
-        )
+        request(`/api/promo/delete/${promoID}`, 'GET', null,
+            {
+                Authorization: `Bearer ${user.token}`
+            })
+            .then(getPromoCodes)
     }
 
 
